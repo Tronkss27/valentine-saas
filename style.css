@@ -99,6 +99,7 @@ header h1 {
     justify-content: center;
     padding: 15px;
     overflow: hidden;
+    position: relative; /* For ghost cursor */
 }
 
 .mascot-preview {
@@ -125,14 +126,37 @@ header h1 {
     border: none;
     font-size: 0.7rem;
     font-weight: 600;
+    transition: transform 0.2s;
 }
 
 .btn-fake.yes { background: var(--primary); color: white; }
 .btn-fake.no { background: white; border: 1px solid var(--primary); color: var(--primary); }
 
+/* Ghost Cursor */
+.ghost-cursor {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    font-size: 24px;
+    color: #333;
+    pointer-events: none;
+    transition: all 0.8s ease-in-out;
+    z-index: 100;
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+}
+
+.ghost-cursor.clicking {
+    transform: scale(0.8);
+    color: var(--primary);
+}
+
 /* Form & Pricing */
 .form-section {
     text-align: left;
+}
+
+.input-group {
+    margin-bottom: 15px;
 }
 
 .input-group label {
@@ -143,7 +167,7 @@ header h1 {
     margin-left: 5px;
 }
 
-input {
+input, select {
     width: 100%;
     padding: 16px;
     border: 2px solid var(--gray);
@@ -152,12 +176,29 @@ input {
     font-size: 1.1rem;
     outline: none;
     transition: 0.3s;
+}
+
+input:focus, select:focus {
+    background: white;
+    border-color: var(--primary);
+}
+
+.btn-secondary-action {
+    background: white;
+    border: 2px solid var(--primary);
+    color: var(--primary);
+    width: 100%;
+    padding: 16px;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
     margin-bottom: 20px;
 }
 
-input:focus {
-    background: white;
-    border-color: var(--primary);
+.btn-secondary-action:hover {
+    background: #fff0f3;
 }
 
 .pricing-card {
@@ -166,6 +207,12 @@ input:focus {
     border-radius: 20px;
     padding: 20px;
     text-align: center;
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .price-header {
@@ -217,6 +264,10 @@ input:focus {
     box-shadow: 0 10px 20px rgba(255, 77, 109, 0.3);
 }
 
+.mt-20 {
+    margin-top: 20px;
+}
+
 .disclaimer {
     text-align: center;
     font-size: 0.8rem;
@@ -252,6 +303,10 @@ input:focus {
     text-align: center;
     position: relative;
     animation: slideUp 0.3s ease;
+}
+
+.preview-content {
+    padding: 40px 20px;
 }
 
 @keyframes slideUp {

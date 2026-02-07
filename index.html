@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine Card Generator 💖</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+    <div class="container landing-container">
+        <header>
+            <h1>The Perfect <span class="highlight">Valentine</span> Card</h1>
+            <p>Create a cute, interactive, and "impossible to say no" digital card for your special someone.</p>
+        </header>
+
+        <main>
+            <div class="preview-box">
+                <img src="pig-heart.png" alt="Cute Pig" class="mascot">
+                <div class="demo-text">
+                    <h3>[Name], will you be my Valentine?</h3>
+                    <div class="fake-buttons">
+                        <button class="btn-fake yes">Yes</button>
+                        <button class="btn-fake no">No</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <label for="valentineName">Who is this for?</label>
+                <input type="text" id="valentineName" placeholder="e.g. Aurora, Michael, Sarah..." required>
+                
+                <div class="pricing">
+                    <span class="price">$1.99</span>
+                    <span class="feature">Lifetime Link • No Ads • Guaranteed "Yes"</span>
+                </div>
+
+                <button id="checkout-button" class="btn-primary">Create My Card 💖</button>
+                <p class="disclaimer">Secure payment via Stripe. No account required.</p>
+            </div>
+        </main>
+
+        <footer>
+            <p>© 2026 Valentine SaaS. Made with love.</p>
+        </footer>
+    </div>
+
+    <script src="landing.js"></script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will you be my Valentine?</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="hearts-bg" id="hearts-bg"></div>
+
+    <div class="container card-container">
+        <img src="pig-heart.png" alt="Cute Pig" class="mascot-large">
+        
+        <h1 id="question">Hey <span id="name-placeholder">...</span>,<br>will you be my Valentine?</h1>
+        <p class="subtitle">Choose carefully... (you don't have much choice 😜)</p>
+
+        <div class="buttons-area">
+            <button id="yes-btn" class="btn-action yes">Yes</button>
+            <button id="no-btn" class="btn-action no">No</button>
+        </div>
+
+        <p id="response-msg" class="response-text"></p>
+    </div>
+
+    <script src="card.js"></script>
+</body>
+</html>

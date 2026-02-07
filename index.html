@@ -8,43 +8,78 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <script src="https://js.stripe.com/v3/"></script>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
     <div class="container landing-container">
         <header>
-            <h1>The Perfect <span class="highlight">Valentine</span> Card</h1>
-            <p>Create a cute, interactive, and "impossible to say no" digital card for your special someone.</p>
+            <div class="logo">💖 ValenLink</div>
+            <h1>The "Impossible to Reject" <span class="highlight">Valentine</span> Card</h1>
+            <p>Create a custom, interactive experience where "No" is not an option.</p>
         </header>
 
         <main>
-            <div class="preview-box">
-                <img src="pig-heart.png" alt="Cute Pig" class="mascot">
-                <div class="demo-text">
-                    <h3>[Name], will you be my Valentine?</h3>
-                    <div class="fake-buttons">
-                        <button class="btn-fake yes">Yes</button>
-                        <button class="btn-fake no">No</button>
+            <!-- Preview Section -->
+            <div class="preview-stage">
+                <div class="phone-mockup">
+                    <div class="screen">
+                        <img src="pig-heart.png" alt="Cute Pig" class="mascot-preview">
+                        <h3 id="preview-text">Aurora, will you be my Valentine?</h3>
+                        <div class="fake-buttons">
+                            <button class="btn-fake yes">Yes</button>
+                            <button class="btn-fake no">No</button>
+                        </div>
                     </div>
                 </div>
             </div>
 
+            <!-- Input Section -->
             <div class="form-section">
-                <label for="valentineName">Who is this for?</label>
-                <input type="text" id="valentineName" placeholder="e.g. Aurora, Michael, Sarah..." required>
-                
-                <div class="pricing">
-                    <span class="price">$1.99</span>
-                    <span class="feature">Lifetime Link • No Ads • Guaranteed "Yes"</span>
+                <div class="input-group">
+                    <label for="valentineName">Enter their name:</label>
+                    <input type="text" id="valentineName" placeholder="e.g. Aurora" autocomplete="off">
                 </div>
-
-                <button id="checkout-button" class="btn-primary">Create My Card 💖</button>
-                <p class="disclaimer">Secure payment via Stripe. No account required.</p>
+                
+                <div class="pricing-card">
+                    <div class="price-header">
+                        <span class="currency">$</span>
+                        <span class="amount">1.99</span>
+                        <span class="period">/ forever</span>
+                    </div>
+                    <ul class="features">
+                        <li><i class="fa-solid fa-check"></i> Custom Name</li>
+                        <li><i class="fa-solid fa-check"></i> "Unclickable No" Logic</li>
+                        <li><i class="fa-solid fa-check"></i> Unique Shareable Link</li>
+                        <li><i class="fa-solid fa-check"></i> No Ads</li>
+                    </ul>
+                    <button id="checkout-button" class="btn-primary">
+                        Generate Link <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+                <p class="disclaimer"><i class="fa-solid fa-lock"></i> Secure payment via Stripe</p>
             </div>
         </main>
 
+        <!-- Result Modal (Hidden by default) -->
+        <div id="result-modal" class="modal hidden">
+            <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                <div class="success-icon"><i class="fa-solid fa-heart"></i></div>
+                <h2>Payment Successful!</h2>
+                <p>Here is your unique link for <b id="modal-name"></b>:</p>
+                
+                <div class="link-box">
+                    <input type="text" id="final-link" readonly>
+                    <button id="copy-btn"><i class="fa-regular fa-copy"></i></button>
+                </div>
+                
+                <a href="#" id="preview-link" target="_blank" class="btn-secondary">Test Link</a>
+            </div>
+        </div>
+
         <footer>
-            <p>© 2026 Valentine SaaS. Made with love.</p>
+            <p>© 2026 ValenLink SaaS. Made with love.</p>
         </footer>
     </div>
 

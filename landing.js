@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Modals
         document.getElementById('paymentSuccessTitle').textContent = t.paymentSuccess;
         document.getElementById('yourLinkText').textContent = t.yourLink;
-        document.getElementById('testLinkText').textContent = t.testLink;
+        previewLinkBtn.textContent = t.testLink;
         buyAfterPreviewBtn.innerHTML = t.generateBtn; // Reuse button text
     }
 

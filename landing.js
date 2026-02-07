@@ -1,32 +1,48 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Elements
+    // --- ELEMENTS ---
     const nameInput = document.getElementById('valentineName');
     const langSelect = document.getElementById('languageSelect');
     const previewBtn = document.getElementById('preview-button');
-    const checkoutSection = document.getElementById('checkout-section');
-    const checkoutBtn = document.getElementById('checkout-button');
+    const landingView = document.getElementById('landing-view');
+    const fullscreenPreview = document.getElementById('fullscreen-preview');
+    const closePreviewBtn = document.getElementById('close-preview-btn');
     
-    // Modals
-    const previewModal = document.getElementById('preview-modal');
+    // Paywall & Result
+    const paywallModal = document.getElementById('paywall-modal');
+    const closePaywallBtn = document.getElementById('close-paywall');
+    const checkoutBtn = document.getElementById('checkout-button');
     const resultModal = document.getElementById('result-modal');
-    const closePreview = document.getElementById('close-preview');
-    const closeResult = document.getElementById('close-result');
-    const buyAfterPreviewBtn = document.getElementById('buy-after-preview');
+    const closeResultBtn = document.getElementById('close-result');
+    
+    // Preview Game Elements
+    const previewQuestion = document.getElementById('preview-question');
+    const previewSubtitle = document.getElementById('preview-subtitle');
+    const previewYesBtn = document.getElementById('preview-yes-btn');
+    const previewNoBtn = document.getElementById('preview-no-btn');
+    const previewResponseMsg = document.getElementById('preview-response-msg');
+    const previewCardContainer = document.getElementById('preview-card-container');
 
-    // Preview Elements
-    const previewCardText = document.getElementById('preview-card-text');
-    const previewYes = document.getElementById('preview-yes');
-    const previewNo = document.getElementById('preview-no');
-    const ghostCursor = document.getElementById('ghost-cursor');
-
-    // Result Elements
+    // Result Link Elements
     const finalLinkInput = document.getElementById('final-link');
     const copyBtn = document.getElementById('copy-btn');
     const previewLinkBtn = document.getElementById('preview-link');
-    const modalName = document.getElementById('modal-name');
+    const paywallName = document.getElementById('paywall-name');
 
-    // --- TRANSLATION LOGIC ---
+    // --- STATE ---
+    let currentLang = 'en';
+    let currentName = '';
+    
+    // Game State
+    let yesScale = 1;
+    let attempts = 0;
+    const MAX_ATTEMPTS = 5;
+    let isSurrendered = false;
+    let dramaLevel = 0;
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || (navigator.maxTouchPoints > 0);
+
+    // --- TRANSLATION ---
     function updateLanguage(lang) {
+        currentLang = lang;
         const t = translations[lang];
         
         // Landing
@@ -36,14 +52,15 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('selectLangLabel').textContent = t.selectLang;
         nameInput.placeholder = t.placeholderName;
         
+        // Buttons
         previewBtn.innerHTML = t.previewBtn;
         checkoutBtn.innerHTML = t.generateBtn;
         
+        // Pricing
         document.getElementById('priceDisplay').textContent = t.price;
         document.getElementById('periodDisplay').textContent = t.period;
-        document.getElementById('securePaymentText').textContent = t.securePayment;
         
-        // Features List
+        // Features
         const featuresList = document.getElementById('featuresList');
         featuresList.innerHTML = '';
         t.features.forEach(feature => {
@@ -55,147 +72,220 @@ document.addEventListener('DOMContentLoaded', () => {
         // Modals
         document.getElementById('paymentSuccessTitle').textContent = t.paymentSuccess;
         document.getElementById('yourLinkText').textContent = t.yourLink;
-        document.getElementById('preview-link').textContent = t.testLink; // FIX: Use correct ID
-        buyAfterPreviewBtn.innerHTML = t.generateBtn; // Reuse button text
+        document.getElementById('preview-link').textContent = t.testLink;
     }
 
-    langSelect.addEventListener('change', (e) => {
-        updateLanguage(e.target.value);
-    });
-
-    // Initialize with default
+    langSelect.addEventListener('change', (e) => updateLanguage(e.target.value));
     updateLanguage('en');
-
-
-    // --- GHOST CURSOR ANIMATION ---
-    class GhostCursor {
-        constructor(cursor, targetNo, targetYes) {
-            this.cursor = cursor;
-            this.targetNo = targetNo;
-            this.targetYes = targetYes;
-            this.isPlaying = false;
-        }
-
-        async play() {
-            if (this.isPlaying) return;
-            this.isPlaying = true;
-            this.cursor.classList.remove('hidden');
-            
-            // Reset positions
-            this.targetNo.style.transform = 'translate(0, 0)';
-            this.targetYes.style.transform = 'scale(1)';
-
-            // 1. Move to No
-            await this.moveTo(this.targetNo);
-            
-            // 2. No runs away (Simulated)
-            this.targetNo.style.transition = 'transform 0.2s';
-            this.targetNo.style.transform = 'translate(60px, -40px) rotate(10deg)';
-            
-            // 3. Chase No
-            await this.wait(300);
-            await this.moveTo({ 
-                getBoundingClientRect: () => {
-                    const rect = this.targetNo.getBoundingClientRect();
-                    return rect;
-                }
-            });
-
-            // 4. No runs again
-            this.targetNo.style.transform = 'translate(-50px, 50px) rotate(-10deg)';
-            
-            // 5. Give up and go to Yes
-            await this.wait(400);
-            await this.moveTo(this.targetYes);
-            
-            // 6. Click Yes
-            this.cursor.classList.add('clicking');
-            this.targetYes.style.transform = 'scale(1.1)';
-            await this.wait(200);
-            this.cursor.classList.remove('clicking');
-            
-            // 7. Finish
-            await this.wait(500);
-            this.cursor.classList.add('hidden');
-            this.isPlaying = false;
-            
-            // Reset for next time
-            setTimeout(() => {
-                this.targetNo.style.transform = 'translate(0, 0)';
-                this.targetYes.style.transform = 'scale(1)';
-            }, 1000);
-        }
-
-        moveTo(element) {
-            return new Promise(resolve => {
-                const rect = element.getBoundingClientRect();
-                // Calculate center relative to the screen container
-                // Note: The cursor is absolute inside .screen
-                const screenRect = document.getElementById('preview-screen').getBoundingClientRect();
-                
-                const x = rect.left - screenRect.left + (rect.width / 2);
-                const y = rect.top - screenRect.top + (rect.height / 2);
-
-                this.cursor.style.left = `${x}px`;
-                this.cursor.style.top = `${y}px`;
-
-                setTimeout(resolve, 800); // Animation duration
-            });
-        }
-
-        wait(ms) {
-            return new Promise(resolve => setTimeout(resolve, ms));
-        }
-    }
-
-    const ghost = new GhostCursor(ghostCursor, previewNo, previewYes);
-
 
     // --- PREVIEW LOGIC ---
     previewBtn.addEventListener('click', () => {
         const name = nameInput.value.trim();
-        const lang = langSelect.value;
-        
         if (!name) {
             nameInput.style.borderColor = 'red';
             setTimeout(() => nameInput.style.borderColor = '#f0f2f5', 500);
             return;
         }
+        currentName = name;
+        startPreview(name);
+    });
 
-        // Update Preview Text
-        const t = translations[lang];
-        previewCardText.innerHTML = t.cardTitle.replace('{name}', name);
-        previewYes.textContent = t.yesBtn;
-        previewNo.textContent = t.noBtn;
-
-        // Show Modal
-        previewModal.classList.remove('hidden');
+    function startPreview(name) {
+        // Switch Views
+        landingView.classList.add('hidden');
+        fullscreenPreview.classList.remove('hidden');
         
-        // Start Animation after a short delay
-        setTimeout(() => ghost.play(), 500);
+        // Setup Card
+        const t = translations[currentLang];
+        previewQuestion.innerHTML = t.cardTitle.replace('{name}', `<span class="highlight">${name}</span>`);
+        previewSubtitle.textContent = t.cardSubtitle;
+        previewYesBtn.textContent = t.yesBtn;
+        previewNoBtn.textContent = t.noBtn;
+        
+        // Reset Game State
+        resetGame();
+        
+        // Create Hearts
+        createHearts();
+    }
+
+    function closePreview() {
+        fullscreenPreview.classList.add('hidden');
+        landingView.classList.remove('hidden');
+        paywallModal.classList.add('hidden');
+        resetGame(); // Reset styles
+    }
+
+    closePreviewBtn.addEventListener('click', closePreview);
+    closePaywallBtn.addEventListener('click', closePreview);
+
+    // --- GAME LOGIC (Duplicated for Preview Isolation) ---
+    function resetGame() {
+        yesScale = 1;
+        attempts = 0;
+        isSurrendered = false;
+        dramaLevel = 0;
+        
+        previewYesBtn.style.transform = 'scale(1)';
+        previewYesBtn.classList.remove('giant-yes');
+        previewYesBtn.innerHTML = translations[currentLang].yesBtn;
+        previewYesBtn.style.display = 'block';
+        
+        previewNoBtn.style.display = 'block';
+        previewNoBtn.style.position = 'relative';
+        previewNoBtn.style.left = 'auto';
+        previewNoBtn.style.top = 'auto';
+        previewNoBtn.style.transform = 'rotate(0deg)';
+        previewNoBtn.textContent = translations[currentLang].noBtn;
+        previewNoBtn.style.background = 'white';
+        previewNoBtn.style.color = 'var(--primary)';
+        previewNoBtn.style.borderColor = 'var(--primary)';
+        
+        previewResponseMsg.textContent = '';
+    }
+
+    function moveButton() {
+        if (isSurrendered) return;
+
+        attempts++;
+        if (attempts >= MAX_ATTEMPTS) {
+            surrender();
+            return;
+        }
+
+        growYes();
+
+        const cardRect = previewCardContainer.getBoundingClientRect();
+        const btnWidth = previewNoBtn.offsetWidth;
+        const btnHeight = previewNoBtn.offsetHeight;
+        
+        const padding = 20;
+        const maxX = cardRect.width - btnWidth - padding;
+        const maxY = cardRect.height - btnHeight - padding;
+
+        let randX, randY;
+        let safe = false;
+        let tries = 0;
+        const yesBuffer = 40;
+
+        while (!safe && tries < 50) {
+            randX = Math.random() * (maxX - padding) + padding;
+            randY = Math.random() * (maxY - padding) + padding;
+            
+            // Simple collision check against Yes button
+            const yesRect = previewYesBtn.getBoundingClientRect();
+            const cardRectAbs = previewCardContainer.getBoundingClientRect();
+            
+            // Calculate absolute positions for new No button position
+            const newLeftAbs = cardRectAbs.left + randX;
+            const newTopAbs = cardRectAbs.top + randY;
+            const newRightAbs = newLeftAbs + btnWidth;
+            const newBottomAbs = newTopAbs + btnHeight;
+            
+            // Check overlap with Yes button (with buffer)
+            if (!(newRightAbs < yesRect.left - yesBuffer || 
+                  newLeftAbs > yesRect.right + yesBuffer || 
+                  newBottomAbs < yesRect.top - yesBuffer || 
+                  newTopAbs > yesRect.bottom + yesBuffer)) {
+                // Overlaps
+                safe = false;
+            } else {
+                safe = true;
+            }
+            tries++;
+        }
+
+        if (!safe) {
+            randX = Math.random() > 0.5 ? padding : maxX - padding;
+            randY = padding; 
+        }
+
+        previewNoBtn.style.position = 'absolute';
+        previewNoBtn.style.left = `${randX}px`;
+        previewNoBtn.style.top = `${randY}px`;
+
+        previewNoBtn.classList.add('btn-shake');
+        setTimeout(() => previewNoBtn.classList.remove('btn-shake'), 300);
+        
+        if (isMobile && navigator.vibrate) navigator.vibrate(50);
+        
+        const texts = translations[currentLang].noTexts;
+        previewNoBtn.textContent = texts[Math.floor(Math.random() * texts.length)];
+        previewNoBtn.style.transform = `rotate(${Math.random() * 20 - 10}deg)`;
+    }
+
+    function growYes() {
+        const rate = isMobile ? 0.5 : 0.3;
+        const max = 3.5;
+        if (yesScale < max) {
+            yesScale += rate;
+            previewYesBtn.style.transform = `scale(${yesScale})`;
+            previewYesBtn.style.zIndex = 100;
+        }
+    }
+
+    function surrender() {
+        isSurrendered = true;
+        const t = translations[currentLang];
+        previewNoBtn.textContent = t.surrender;
+        previewNoBtn.style.transform = "rotate(0deg)";
+        previewNoBtn.style.background = "#e0e0e0";
+        previewNoBtn.style.color = "#666";
+        previewNoBtn.style.borderColor = "#ccc";
+        previewNoBtn.style.position = "absolute"; 
+    }
+
+    function handleDrama() {
+        dramaLevel++;
+        const t = translations[currentLang];
+        if (dramaLevel === 1) {
+            previewNoBtn.textContent = t.drama1;
+            previewNoBtn.style.transform = "scale(0.9)";
+        } else if (dramaLevel === 2) {
+            previewNoBtn.textContent = t.drama2;
+            previewNoBtn.style.transform = "scale(0.8)";
+        } else {
+            // FINALE
+            previewNoBtn.style.display = 'none';
+            previewYesBtn.innerHTML = `<span>${t.finalSmall}</span>${t.finalBig}`;
+            previewYesBtn.classList.add('giant-yes');
+            previewResponseMsg.textContent = t.finalMsg;
+        }
+    }
+
+    // --- VICTORY -> PAYWALL ---
+    previewYesBtn.addEventListener('click', () => {
+        // Instead of showing victory screen, show Paywall
+        paywallName.textContent = currentName;
+        paywallModal.classList.remove('hidden');
     });
 
-    buyAfterPreviewBtn.addEventListener('click', () => {
-        previewModal.classList.add('hidden');
-        checkoutSection.classList.remove('hidden');
-        checkoutSection.scrollIntoView({ behavior: 'smooth' });
-    });
+    previewNoBtn.addEventListener('mouseover', () => { if (!isMobile) moveButton(); });
+    previewNoBtn.addEventListener('touchstart', (e) => { e.preventDefault(); if (isSurrendered) handleDrama(); else moveButton(); });
+    previewNoBtn.addEventListener('click', (e) => { e.preventDefault(); if (isSurrendered) handleDrama(); else moveButton(); });
 
 
-    // --- CHECKOUT LOGIC ---
+    // --- CHECKOUT & LINK GENERATION ---
     checkoutBtn.addEventListener('click', () => {
-        const name = nameInput.value.trim();
-        const lang = langSelect.value;
+        // --- DODO PAYMENTS INTEGRATION ---
+        const DODO_PAYMENT_LINK = "YOUR_DODO_PAYMENT_LINK_HERE"; 
 
-        // --- PAYMENT SIMULATION ---
+        if (DODO_PAYMENT_LINK === "YOUR_DODO_PAYMENT_LINK_HERE") {
+            simulatePayment();
+        } else {
+            window.location.href = DODO_PAYMENT_LINK;
+        }
+    });
+
+    function simulatePayment() {
         checkoutBtn.innerHTML = '<i class="fa-solid fa-lock"></i> Verifying Payment...';
         checkoutBtn.disabled = true;
 
         setTimeout(() => {
             // Generate Token
             const payload = {
-                n: name,
-                l: lang, // Add Language to payload
+                n: currentName,
+                l: currentLang, 
                 ts: Date.now(),
                 s: Math.random().toString(36).substring(7)
             };
@@ -206,32 +296,41 @@ document.addEventListener('DOMContentLoaded', () => {
 
             finalLinkInput.value = fullUrl;
             previewLinkBtn.href = fullUrl;
-            modalName.textContent = name;
             
+            paywallModal.classList.add('hidden');
             resultModal.classList.remove('hidden');
             
-            checkoutBtn.innerHTML = translations[lang].generateBtn;
+            checkoutBtn.innerHTML = translations[currentLang].generateBtn;
             checkoutBtn.disabled = false;
         }, 2000);
-    });
-
+    }
 
     // --- UTILS ---
+    function createHearts() {
+        const container = document.getElementById('preview-hearts');
+        container.innerHTML = '';
+        for(let i=0; i<15; i++) {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '❤';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 5 + 5) + 's';
+            heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+            container.appendChild(heart);
+        }
+    }
+
     copyBtn.addEventListener('click', () => {
         finalLinkInput.select();
         document.execCommand('copy');
         navigator.clipboard.writeText(finalLinkInput.value);
-        
         const originalIcon = copyBtn.innerHTML;
         copyBtn.innerHTML = '<i class="fa-solid fa-check"></i>';
         setTimeout(() => copyBtn.innerHTML = originalIcon, 2000);
     });
 
-    closePreview.addEventListener('click', () => previewModal.classList.add('hidden'));
-    closeResult.addEventListener('click', () => resultModal.classList.add('hidden'));
-    
-    window.addEventListener('click', (e) => {
-        if (e.target === previewModal) previewModal.classList.add('hidden');
-        if (e.target === resultModal) resultModal.classList.add('hidden');
+    closeResultBtn.addEventListener('click', () => {
+        resultModal.classList.add('hidden');
+        closePreview();
     });
 });

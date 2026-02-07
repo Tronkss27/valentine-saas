@@ -34,9 +34,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const noBtn = document.getElementById('no-btn');
     const responseMsg = document.getElementById('response-msg');
     const card = document.querySelector('.card-container');
+    const mainCard = document.getElementById('main-card');
+    const victoryScreen = document.getElementById('victory-screen');
 
     yesBtn.textContent = t.yesBtn;
     noBtn.textContent = t.noBtn;
+
+    // Update Victory Screen Texts
+    document.getElementById('victory-title').innerHTML = t.victoryBtn; // "YAAAAY!"
+    document.getElementById('victory-message').innerHTML = t.victoryMsg; // "I knew..."
 
     // 2. GAME LOGIC
     const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || (navigator.maxTouchPoints > 0);
@@ -149,17 +155,14 @@ document.addEventListener('DOMContentLoaded', () => {
         noBtn.style.background = "#e0e0e0";
         noBtn.style.color = "#666";
         noBtn.style.borderColor = "#ccc";
-        noBtn.style.position = "absolute"; // Keep absolute to avoid jumping
+        noBtn.style.position = "absolute"; 
         
-        // Force safe position if currently overlapping (double check)
         const yesBuffer = 50;
         if (isOverlapping(parseFloat(noBtn.style.left), parseFloat(noBtn.style.top), noBtn.offsetWidth, noBtn.offsetHeight, yesBtn, yesBuffer)) {
-             // Move to bottom right corner as fallback safe zone
              noBtn.style.left = (card.offsetWidth - noBtn.offsetWidth - 20) + 'px';
              noBtn.style.top = (card.offsetHeight - noBtn.offsetHeight - 20) + 'px';
         }
         
-        // Ensure Z-Index is lower than Yes button but visible
         noBtn.style.zIndex = 10;
         yesBtn.style.zIndex = 100;
     }
@@ -182,15 +185,16 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function victory() {
-        responseMsg.innerHTML = t.victoryMsg;
-        noBtn.style.display = 'none';
-        yesBtn.classList.remove('giant-yes');
-        yesBtn.style.transform = "scale(1)";
-        yesBtn.textContent = t.victoryBtn;
+        // Hide Main Card
+        mainCard.classList.add('hidden');
+        
+        // Show Victory Screen
+        victoryScreen.classList.remove('hidden');
         
         if (isMobile && navigator.vibrate) navigator.vibrate([100, 50, 100]);
         
-        document.body.style.backgroundColor = "#ffe3ec";
+        // Confetti effect (simple CSS background change for now, or we could add a library)
+        document.body.style.overflow = 'hidden'; // Prevent scrolling
     }
 
     function createHearts() {

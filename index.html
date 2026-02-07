@@ -12,7 +12,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <div class="container landing-container">
+    <!-- LANDING VIEW -->
+    <div class="container landing-container" id="landing-view">
         <header>
             <div class="logo">💖 ValenLink</div>
             <h1 id="landingTitle">The "Impossible to Reject" <span class="highlight">Valentine</span> Card</h1>
@@ -20,7 +21,6 @@
         </header>
 
         <main>
-            <!-- Input Section -->
             <div class="form-section">
                 <div class="input-group">
                     <label for="valentineName" id="enterNameLabel">Enter their name:</label>
@@ -39,74 +39,82 @@
                 </div>
                 
                 <button id="preview-button" class="btn-secondary-action">
-                    See Preview <i class="fa-solid fa-eye"></i>
+                    Try Full Screen Preview <i class="fa-solid fa-play"></i>
                 </button>
 
-                <!-- Hidden Checkout Section (Revealed after Preview) -->
-                <div id="checkout-section" class="pricing-card hidden">
-                    <div class="price-header">
-                        <span class="amount" id="priceDisplay">$1.99</span>
-                        <span class="period" id="periodDisplay">/ forever</span>
-                    </div>
-                    <ul class="features" id="featuresList">
-                        <li><i class="fa-solid fa-check"></i> Custom Name</li>
-                        <li><i class="fa-solid fa-check"></i> "Unclickable No" Logic</li>
-                        <li><i class="fa-solid fa-check"></i> Unique Shareable Link</li>
-                        <li><i class="fa-solid fa-check"></i> No Ads</li>
-                    </ul>
-                    <button id="checkout-button" class="btn-primary">
-                        Get Link <i class="fa-solid fa-arrow-right"></i>
-                    </button>
-                    <p class="disclaimer"><i class="fa-solid fa-lock"></i> <span id="securePaymentText">Secure payment via Stripe</span></p>
+                <div class="pricing-mini">
+                    <p class="price-tag">$1.99 <span class="period">/ forever</span></p>
+                    <p class="disclaimer"><i class="fa-solid fa-lock"></i> Secure payment via Stripe</p>
                 </div>
             </div>
         </main>
 
-        <!-- Preview Modal -->
-        <div id="preview-modal" class="modal hidden">
-            <div class="modal-content preview-content">
-                <span class="close-modal" id="close-preview">&times;</span>
-                <h3>Preview</h3>
-                <div class="phone-mockup">
-                    <div class="screen" id="preview-screen">
-                        <img src="pig-heart.png" alt="Cute Pig" class="mascot-preview">
-                        <h3 id="preview-card-text">Aurora, will you be my Valentine?</h3>
-                        <div class="fake-buttons">
-                            <button class="btn-fake yes" id="preview-yes">Yes</button>
-                            <button class="btn-fake no" id="preview-no">No</button>
-                        </div>
-                        <!-- Ghost Cursor -->
-                        <div id="ghost-cursor" class="ghost-cursor hidden">
-                            <i class="fa-solid fa-hand-pointer"></i>
-                        </div>
-                    </div>
-                </div>
-                <button id="buy-after-preview" class="btn-primary mt-20">
-                    I love it! Get Link <i class="fa-solid fa-heart"></i>
-                </button>
-            </div>
-        </div>
-
-        <!-- Result Modal (Hidden by default) -->
-        <div id="result-modal" class="modal hidden">
-            <div class="modal-content">
-                <span class="close-modal" id="close-result">&times;</span>
-                <div class="success-icon"><i class="fa-solid fa-heart"></i></div>
-                <h2 id="paymentSuccessTitle">Payment Successful!</h2>
-                <p><span id="yourLinkText">Here is your unique link for</span> <b id="modal-name"></b>:</p>
-                
-                <div class="link-box">
-                    <input type="text" id="final-link" readonly>
-                    <button id="copy-btn"><i class="fa-regular fa-copy"></i></button>
-                </div>
-                
-                <a href="#" id="preview-link" target="_blank" class="btn-secondary">Test Link</a>
-            </div>
-        </div>
-
         <footer>
             <p>© 2026 ValenLink SaaS. Made with love.</p>
         </footer>
+    </div>
+
+    <!-- FULL SCREEN PREVIEW (Hidden by default) -->
+    <div id="fullscreen-preview" class="fullscreen-layer hidden">
+        <button id="close-preview-btn" class="close-floating">&times;</button>
+        
+        <div class="hearts-bg" id="preview-hearts"></div>
+
+        <div class="container card-container" id="preview-card-container">
+            <img src="pig-heart.png" alt="Cute Pig" class="mascot-large">
+            
+            <h1 id="preview-question">Hey <span id="preview-name-placeholder">...</span>,<br>will you be my Valentine?</h1>
+            <p class="subtitle" id="preview-subtitle">Choose carefully... (you don't have much choice 😜)</p>
+
+            <div class="buttons-area">
+                <button id="preview-yes-btn" class="btn-action yes">Yes</button>
+                <button id="preview-no-btn" class="btn-action no">No</button>
+            </div>
+            
+            <p id="preview-response-msg" class="response-text"></p>
+        </div>
+    </div>
+
+    <!-- PAYWALL / CHECKOUT MODAL (Triggered on Victory) -->
+    <div id="paywall-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="success-icon"><i class="fa-solid fa-heart"></i></div>
+            <h2>She said YES! 🎉</h2>
+            <p>Do you want to send this exact experience to <b><span id="paywall-name"></span></b>?</p>
+            
+            <div class="pricing-card mt-20">
+                <div class="price-header">
+                    <span class="amount" id="priceDisplay">$1.99</span>
+                    <span class="period" id="periodDisplay">/ forever</span>
+                </div>
+                <ul class="features" id="featuresList">
+                    <li><i class="fa-solid fa-check"></i> Custom Name</li>
+                    <li><i class="fa-solid fa-check"></i> "Unclickable No" Logic</li>
+                    <li><i class="fa-solid fa-check"></i> Unique Shareable Link</li>
+                </ul>
+                <button id="checkout-button" class="btn-primary">
+                    Get My Link Now <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </div>
+            <button id="close-paywall" class="btn-text">Close Preview</button>
+        </div>
+    </div>
+
+    <!-- RESULT MODAL (After Payment) -->
+    <div id="result-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-modal" id="close-result">&times;</span>
+            <div class="success-icon"><i class="fa-solid fa-check-circle"></i></div>
+            <h2 id="paymentSuccessTitle">Payment Successful!</h2>
+            <p><span id="yourLinkText">Here is your unique link:</span></p>
+            
+            <div class="link-box">
+                <input type="text" id="final-link" readonly>
+                <button id="copy-btn"><i class="fa-regular fa-copy"></i></button>
+            </div>
+            
+            <a href="#" id="preview-link" target="_blank" class="btn-secondary">Test Link</a>
+        </div>
     </div>
 
     <script src="translations.js"></script>

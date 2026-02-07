@@ -56,23 +56,31 @@ document.addEventListener('DOMContentLoaded', () => {
         previewBtn.innerHTML = t.previewBtn;
         checkoutBtn.innerHTML = t.generateBtn;
         
-        // Pricing
-        document.getElementById('priceDisplay').textContent = t.price;
-        document.getElementById('periodDisplay').textContent = t.period;
+        // Pricing (Check if elements exist before updating)
+        const priceDisplay = document.getElementById('priceDisplay');
+        if(priceDisplay) priceDisplay.textContent = t.price;
+        
+        const periodDisplay = document.getElementById('periodDisplay');
+        if(periodDisplay) periodDisplay.textContent = t.period;
         
         // Features
         const featuresList = document.getElementById('featuresList');
-        featuresList.innerHTML = '';
-        t.features.forEach(feature => {
-            const li = document.createElement('li');
-            li.innerHTML = `<i class="fa-solid fa-check"></i> ${feature}`;
-            featuresList.appendChild(li);
-        });
+        if(featuresList) {
+            featuresList.innerHTML = '';
+            t.features.forEach(feature => {
+                const li = document.createElement('li');
+                li.innerHTML = `<i class="fa-solid fa-check"></i> ${feature}`;
+                featuresList.appendChild(li);
+            });
+        }
 
         // Modals
         document.getElementById('paymentSuccessTitle').textContent = t.paymentSuccess;
         document.getElementById('yourLinkText').textContent = t.yourLink;
-        document.getElementById('preview-link').textContent = t.testLink;
+        
+        const previewLink = document.getElementById('preview-link');
+        if(previewLink) previewLink.textContent = t.testLink;
+
     }
 
     langSelect.addEventListener('change', (e) => updateLanguage(e.target.value));
@@ -268,13 +276,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- CHECKOUT & LINK GENERATION ---
     checkoutBtn.addEventListener('click', () => {
         // --- DODO PAYMENTS INTEGRATION ---
-        const DODO_PAYMENT_LINK = "YOUR_DODO_PAYMENT_LINK_HERE"; 
+        const DODO_PAYMENT_LINK = "https://pay.dodopayments.com/buy/pdt_0NY01y9ZYWCDPKnzorOEd"; 
 
-        if (DODO_PAYMENT_LINK === "YOUR_DODO_PAYMENT_LINK_HERE") {
-            simulatePayment();
-        } else {
-            window.location.href = DODO_PAYMENT_LINK;
-        }
+        // Store current session data
+        localStorage.setItem('valenlink_name', currentName);
+        localStorage.setItem('valenlink_lang', currentLang);
+
+        window.location.href = DODO_PAYMENT_LINK;
     });
 
     function simulatePayment() {

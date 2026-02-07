@@ -276,7 +276,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- CHECKOUT & LINK GENERATION ---
     checkoutBtn.addEventListener('click', () => {
         // --- DODO PAYMENTS INTEGRATION ---
-        const DODO_PAYMENT_LINK = "https://pay.dodopayments.com/buy/pdt_0NY01y9ZYWCDPKnzorOEd"; 
+        // Using Test Mode URL as per user screenshot/context
+        const DODO_PAYMENT_LINK = "https://test.dodopayments.com/buy/pdt_0NY01y9ZYWCDPKnzorOEd"; 
 
         // Store current session data
         localStorage.setItem('valenlink_name', currentName);

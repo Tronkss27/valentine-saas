@@ -1,12 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine Card Generator 💖</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container landing-container">
+        <header>
+            <div class="logo">💖 ValenLink</div>
+            <h1 id="landingTitle">The "Impossible to Reject" <span class="highlight">Valentine</span> Card</h1>
+            <p id="landingSubtitle">Create a custom, interactive experience where "No" is not an option.</p>
+        </header>
+
+        <main>
+            <!-- Input Section -->
+            <div class="form-section">
+                <div class="input-group">
+                    <label for="valentineName" id="enterNameLabel">Enter their name:</label>
+                    <input type="text" id="valentineName" placeholder="e.g. Aurora" autocomplete="off">
+                </div>
+
+                <div class="input-group">
+                    <label for="languageSelect" id="selectLangLabel">Select Language:</label>
+                    <select id="languageSelect">
+                        <option value="en">English 🇺🇸</option>
+                        <option value="it">Italiano 🇮🇹</option>
+                        <option value="de">Deutsch 🇩🇪</option>
+                        <option value="es">Español 🇪🇸</option>
+                        <option value="fr">Français 🇫🇷</option>
+                    </select>
+                </div>
+                
+                <button id="preview-button" class="btn-secondary-action">
+                    See Preview <i class="fa-solid fa-eye"></i>
+                </button>
+
+                <!-- Hidden Checkout Section (Revealed after Preview) -->
+                <div id="checkout-section" class="pricing-card hidden">
+                    <div class="price-header">
+                        <span class="amount" id="priceDisplay">$1.99</span>
+                        <span class="period" id="periodDisplay">/ forever</span>
+                    </div>
+                    <ul class="features" id="featuresList">
+                        <li><i class="fa-solid fa-check"></i> Custom Name</li>
+                        <li><i class="fa-solid fa-check"></i> "Unclickable No" Logic</li>
+                        <li><i class="fa-solid fa-check"></i> Unique Shareable Link</li>
+                        <li><i class="fa-solid fa-check"></i> No Ads</li>
+                    </ul>
+                    <button id="checkout-button" class="btn-primary">
+                        Get Link <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                    <p class="disclaimer"><i class="fa-solid fa-lock"></i> <span id="securePaymentText">Secure payment via Stripe</span></p>
+                </div>
+            </div>
+        </main>
+
         <!-- Preview Modal -->
         <div id="preview-modal" class="modal hidden">
             <div class="modal-content preview-content">
-                <div class="preview-header">
-                    <h3>Preview</h3>
-                    <p>Watch how they will experience it!</p>
-                </div>
                 <span class="close-modal" id="close-preview">&times;</span>
-                
+                <h3>Preview</h3>
                 <div class="phone-mockup">
                     <div class="screen" id="preview-screen">
                         <img src="pig-heart.png" alt="Cute Pig" class="mascot-preview">
@@ -15,24 +75,41 @@
                             <button class="btn-fake yes" id="preview-yes">Yes</button>
                             <button class="btn-fake no" id="preview-no">No</button>
                         </div>
-                        
                         <!-- Ghost Cursor -->
                         <div id="ghost-cursor" class="ghost-cursor hidden">
                             <i class="fa-solid fa-hand-pointer"></i>
                         </div>
-
-                        <!-- End of Preview Overlay -->
-                        <div id="preview-overlay" class="preview-overlay">
-                            <div class="success-icon"><i class="fa-solid fa-heart"></i></div>
-                            <h4>She said YES!</h4>
-                            <p>Create your own unique link now to get this reaction.</p>
-                            <button id="buy-inside-preview" class="btn-primary">
-                                Get Link <i class="fa-solid fa-arrow-right"></i>
-                            </button>
-                        </div>
                     </div>
                 </div>
-                
-                <!-- Removed external button, moved inside phone overlay -->
+                <button id="buy-after-preview" class="btn-primary mt-20">
+                    I love it! Get Link <i class="fa-solid fa-heart"></i>
+                </button>
             </div>
         </div>
+
+        <!-- Result Modal (Hidden by default) -->
+        <div id="result-modal" class="modal hidden">
+            <div class="modal-content">
+                <span class="close-modal" id="close-result">&times;</span>
+                <div class="success-icon"><i class="fa-solid fa-heart"></i></div>
+                <h2 id="paymentSuccessTitle">Payment Successful!</h2>
+                <p><span id="yourLinkText">Here is your unique link for</span> <b id="modal-name"></b>:</p>
+                
+                <div class="link-box">
+                    <input type="text" id="final-link" readonly>
+                    <button id="copy-btn"><i class="fa-regular fa-copy"></i></button>
+                </div>
+                
+                <a href="#" id="preview-link" target="_blank" class="btn-secondary">Test Link</a>
+            </div>
+        </div>
+
+        <footer>
+            <p>© 2026 ValenLink SaaS. Made with love.</p>
+        </footer>
+    </div>
+
+    <script src="translations.js"></script>
+    <script src="landing.js"></script>
+</body>
+</html>

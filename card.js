@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
         noBtn.style.left = "15px";
         noBtn.style.bottom = "auto";
         noBtn.style.transform = "scale(0.85)"; // Slightly smaller
-        noBtn.style.zIndex = "200"; 
+        noBtn.style.zIndex = "99999"; // Ultra high to be above everything
         noBtn.style.transition = "all 0.5s ease";
         
         yesBtn.style.zIndex = 100;

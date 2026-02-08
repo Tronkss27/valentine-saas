@@ -290,7 +290,7 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('valenlink_lang', currentLang);
 
         // --- DODO PAYMENTS INTEGRATION ---
-        const DODO_PAYMENT_LINK = "https://pay.dodopayments.com/buy/pdt_0NY01y9ZYWCDPKnzorOEd"; 
+        const DODO_PAYMENT_LINK = "https://checkout.dodopayments.com/buy/pdt_0NY01y9ZYWCDPKnzorOEd"; 
         
         // Open in new tab to avoid 'download' issue if it's a file header problem
         // But better yet, simply redirect

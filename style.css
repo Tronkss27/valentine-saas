@@ -233,6 +233,23 @@ input:focus, select:focus {
     border: 2px solid var(--primary);
     color: var(--primary);
     position: relative;
+    white-space: nowrap;
+    min-width: 100px; /* Assicura una larghezza minima */
+    z-index: 50; /* Aumentato z-index per stare sopra */
+}
+
+/* Stili per la trasformazione del bottone No */
+.button--surrender {
+    background-color: #e0e0e0 !important;
+    color: #666 !important;
+    border-color: #ccc !important;
+    cursor: pointer !important;
+    transform: scale(0.9) !important;
+    white-space: nowrap !important;
+    width: auto !important;
+    min-width: 140px !important; /* Più largo quando c'è testo lungo */
+    max-width: 90vw; /* Non uscire dallo schermo su mobile */
+    z-index: 50 !important; /* Importante per non finire sotto */
 }
 
 /* Giant Yes State in Preview */

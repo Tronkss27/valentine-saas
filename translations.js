@@ -38,12 +38,18 @@ const translations = {
         
         // Finale
         finalSmall: "YOU HAVE NO CHOICE! 😈💖",
-        finalBig: "YES, I LOVE YOU! 😍",
+        finalBig: "YES, I WANT TO! 😍",
         finalMsg: "Resistance is futile...",
         
         // Victory
         victoryMsg: "I knew you would say YES! <br> Love you! 💖🐷",
-        victoryBtn: "YAAAAY! 🎉"
+        victoryBtn: "YAAAAY! 🎉",
+        
+        // Paywall Modal
+        paywallTitle: "She said YES! 🎉",
+        paywallSubtitle: "Do you want to send this exact experience to <b>{name}</b>?",
+        paywallBtn: "Get My Link Now <i class=\"fa-solid fa-arrow-right\"></i>",
+        paywallClose: "Close Preview"
     },
     it: {
         landingTitle: 'La Carta di San Valentino <span class="highlight">Impossibile da Rifiutare</span>',
@@ -84,12 +90,18 @@ const translations = {
         
         // Finale
         finalSmall: "NON HAI SCELTA! 😈💖",
-        finalBig: "SÌ, TI AMO! 😍",
+        finalBig: "SÌ, LO VOGLIO! 😍",
         finalMsg: "Resistere è inutile...",
         
         // Victory
         victoryMsg: "Sapevo che avresti detto SÌ! <br> Ti amo! 💖🐷",
-        victoryBtn: "EVVIVA! 🎉"
+        victoryBtn: "EVVIVA! 🎉",
+        
+        // Paywall Modal
+        paywallTitle: "Ha detto SÌ! 🎉",
+        paywallSubtitle: "Vuoi inviare questa esperienza esatta a <b>{name}</b>?",
+        paywallBtn: "Ottieni il Link Ora <i class=\"fa-solid fa-arrow-right\"></i>",
+        paywallClose: "Chiudi Anteprima"
     },
     de: {
         landingTitle: 'Die <span class="highlight">Unablehnbare</span> Valentinskarte',
@@ -130,12 +142,18 @@ const translations = {
         
         // Finale
         finalSmall: "DU HAST KEINE WAHL! 😈💖",
-        finalBig: "JA, ICH LIEBE DICH! 😍",
+        finalBig: "JA, ICH WILL! 😍",
         finalMsg: "Widerstand ist zwecklos...",
         
         // Victory
         victoryMsg: "Ich wusste, du sagst JA! <br> Ich liebe dich! 💖🐷",
-        victoryBtn: "JAAAA! 🎉"
+        victoryBtn: "JAAAA! 🎉",
+        
+        // Paywall Modal
+        paywallTitle: "Sie hat JA gesagt! 🎉",
+        paywallSubtitle: "Möchtest du genau dieses Erlebnis an <b>{name}</b> senden?",
+        paywallBtn: "Link jetzt erhalten <i class=\"fa-solid fa-arrow-right\"></i>",
+        paywallClose: "Vorschau schließen"
     },
     es: {
         landingTitle: 'La Tarjeta de San Valentín <span class="highlight">Imposible de Rechazar</span>',
@@ -176,12 +194,18 @@ const translations = {
         
         // Finale
         finalSmall: "¡NO TIENES OPCIÓN! 😈💖",
-        finalBig: "¡SÍ, TE AMO! 😍",
+        finalBig: "¡SÍ, QUIERO! 😍",
         finalMsg: "La resistencia es inútil...",
         
         // Victory
         victoryMsg: "¡Sabía que dirías que SÍ! <br> ¡Te amo! 💖🐷",
-        victoryBtn: "¡SIIII! 🎉"
+        victoryBtn: "¡SIIII! 🎉",
+        
+        // Paywall Modal
+        paywallTitle: "¡Ella dijo SÍ! 🎉",
+        paywallSubtitle: "¿Quieres enviar esta experiencia exacta a <b>{name}</b>?",
+        paywallBtn: "Obtener Enlace Ahora <i class=\"fa-solid fa-arrow-right\"></i>",
+        paywallClose: "Cerrar Vista Previa"
     },
     fr: {
         landingTitle: 'La Carte de Saint-Valentin <span class="highlight">Impossible à Refuser</span>',
@@ -222,11 +246,17 @@ const translations = {
         
         // Finale
         finalSmall: "TU N'AS PAS LE CHOIX ! 😈💖",
-        finalBig: "OUI, JE T'AIME ! 😍",
+        finalBig: "OUI, JE LE VEUX ! 😍",
         finalMsg: "La résistance est futile...",
         
         // Victory
         victoryMsg: "Je savais que tu dirais OUI ! <br> Je t'aime ! 💖🐷",
-        victoryBtn: "OUIIII ! 🎉"
+        victoryBtn: "OUIIII ! 🎉",
+        
+        // Paywall Modal
+        paywallTitle: "Elle a dit OUI ! 🎉",
+        paywallSubtitle: "Voulez-vous envoyer cette expérience exacte à <b>{name}</b> ?",
+        paywallBtn: "Obtenir le lien maintenant <i class=\"fa-solid fa-arrow-right\"></i>",
+        paywallClose: "Fermer l'aperçu"
     }
 };

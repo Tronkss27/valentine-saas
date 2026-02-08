@@ -105,7 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
         noBtn.style.bottom = "auto";
         noBtn.style.left = "50%";
         noBtn.style.transform = "translateX(-50%) scale(0.9)";
-        noBtn.style.zIndex = "50";
+        noBtn.style.zIndex = "200"; // Higher than Yes button
         noBtn.style.transition = "all 0.5s ease";
         
         yesBtn.style.zIndex = 100;

@@ -242,13 +242,15 @@ document.addEventListener('DOMContentLoaded', () => {
         previewNoBtn.style.borderColor = "#ccc";
         previewNoBtn.style.position = "absolute"; 
         
-        // Force Bottom Position (Safe from Mascot)
-        previewNoBtn.style.top = "auto";
-        previewNoBtn.style.bottom = "20px";
+        // Force Top Position (Safe from Mascot)
+        previewNoBtn.style.top = "20px";
+        previewNoBtn.style.bottom = "auto";
         previewNoBtn.style.left = "50%";
         previewNoBtn.style.transform = "translateX(-50%) scale(0.9)";
-        previewNoBtn.style.zIndex = "50";
+        previewNoBtn.style.zIndex = "200"; // Higher than Yes button
         previewNoBtn.style.transition = "all 0.5s ease";
+        
+        previewYesBtn.style.zIndex = 100;
     }
 
     function handleDrama() {
@@ -294,7 +296,7 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('valenlink_lang', currentLang);
 
         // --- DODO PAYMENTS INTEGRATION ---
-        const DODO_PAYMENT_LINK = "https://checkout.dodopayments.com/buy/pdt_0NY01y9ZYWCDPKnzorOEd?quantity=1&redirect_url=" + encodeURIComponent(window.location.origin + "/?payment=success");
+        const DODO_PAYMENT_LINK = "https://test.checkout.dodopayments.com/buy/pdt_0NY01y9ZYWCDPKnzorOEd?quantity=1&redirect_url=" + encodeURIComponent(window.location.origin + "/?payment=success");
         
         window.location.href = DODO_PAYMENT_LINK;
     });

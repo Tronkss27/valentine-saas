@@ -294,39 +294,43 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('valenlink_lang', currentLang);
 
         // --- DODO PAYMENTS INTEGRATION ---
-        const DODO_PAYMENT_LINK = "https://checkout.dodopayments.com/buy/pdt_0NY01y9ZYWCDPKnzorOEd"; 
+        const DODO_PAYMENT_LINK = "https://checkout.dodopayments.com/buy/pdt_0NY01y9ZYWCDPKnzorOEd?quantity=1&redirect_url=" + encodeURIComponent(window.location.origin + "/?payment=success");
         
-        // Open in new tab to avoid 'download' issue if it's a file header problem
-        // But better yet, simply redirect
         window.location.href = DODO_PAYMENT_LINK;
     });
 
-    function simulatePayment() {
-        checkoutBtn.innerHTML = '<i class="fa-solid fa-lock"></i> Verifying Payment...';
-        checkoutBtn.disabled = true;
+    // Check for payment success on load
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('payment') === 'success') {
+        // Retrieve stored data
+        const storedName = localStorage.getItem('valenlink_name');
+        const storedLang = localStorage.getItem('valenlink_lang');
+        
+        if (storedName) currentName = storedName;
+        if (storedLang) currentLang = storedLang;
+        
+        // Show Result Modal
+        landingView.classList.remove('hidden'); // Ensure landing is visible
+        paywallModal.classList.add('hidden');
+        resultModal.classList.remove('hidden');
+        
+        // Generate Link
+        const payload = {
+            n: currentName,
+            l: currentLang, 
+            ts: Date.now(),
+            s: Math.random().toString(36).substring(7)
+        };
+        
+        const token = btoa(JSON.stringify(payload));
+        const baseUrl = window.location.href.split('?')[0].replace(/\/$/, ''); // Clean URL
+        const fullUrl = `${baseUrl}/card.html?token=${token}`;
 
-        setTimeout(() => {
-            // Generate Token
-            const payload = {
-                n: currentName,
-                l: currentLang, 
-                ts: Date.now(),
-                s: Math.random().toString(36).substring(7)
-            };
-            
-            const token = btoa(JSON.stringify(payload));
-            const baseUrl = window.location.href.substring(0, window.location.href.lastIndexOf('/'));
-            const fullUrl = `${baseUrl}/card.html?token=${token}`;
-
-            finalLinkInput.value = fullUrl;
-            previewLinkBtn.href = fullUrl;
-            
-            paywallModal.classList.add('hidden');
-            resultModal.classList.remove('hidden');
-            
-            checkoutBtn.innerHTML = translations[currentLang].generateBtn;
-            checkoutBtn.disabled = false;
-        }, 2000);
+        finalLinkInput.value = fullUrl;
+        previewLinkBtn.href = fullUrl;
+        
+        // Clean URL
+        window.history.replaceState({}, document.title, "/");
     }
 
     // --- UTILS ---

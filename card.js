@@ -67,45 +67,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
         growYes();
 
-        const cardRect = card.getBoundingClientRect();
-        const btnWidth = noBtn.offsetWidth;
-        const btnHeight = noBtn.offsetHeight;
-        
-        const title = document.querySelector('h1');
-        const img = document.querySelector('.mascot-large');
-        const yes = yesBtn;
+        const positions = [
+            { top: '10%', left: '10%' }, // Top Left
+            { top: '50%', left: '80%' }, // Center Right
+            { top: '50%', left: '10%' }, // Center Left
+            { top: '80%', left: '80%' }, // Bottom Right
+            { top: '20%', left: '50%' }  // Top Center
+        ];
 
-        const padding = 20;
-        const maxX = cardRect.width - btnWidth - padding;
-        const maxY = cardRect.height - btnHeight - padding;
-
-        let randX, randY;
-        let safe = false;
-        let tries = 0;
-        const yesBuffer = 40;
-
-        while (!safe && tries < 100) {
-            randX = Math.random() * (maxX - padding) + padding;
-            randY = Math.random() * (maxY - padding) + padding;
-            
-            const hitTitle = isOverlapping(randX, randY, btnWidth, btnHeight, title, 0);
-            const hitImg = isOverlapping(randX, randY, btnWidth, btnHeight, img, 0);
-            const hitYes = isOverlapping(randX, randY, btnWidth, btnHeight, yes, yesBuffer);
-
-            if (!hitTitle && !hitImg && !hitYes) {
-                safe = true;
-            }
-            tries++;
-        }
-
-        if (!safe) {
-            randX = Math.random() > 0.5 ? padding : maxX - padding;
-            randY = padding; 
-        }
+        const pos = positions[(attempts - 1) % positions.length];
 
         noBtn.style.position = 'absolute';
-        noBtn.style.left = `${randX}px`;
-        noBtn.style.top = `${randY}px`;
+        noBtn.style.left = pos.left;
+        noBtn.style.top = pos.top;
+        noBtn.style.transform = `translate(-50%, -50%) rotate(${Math.random() * 20 - 10}deg)`;
 
         noBtn.classList.add('btn-shake');
         setTimeout(() => noBtn.classList.remove('btn-shake'), 300);
@@ -114,38 +89,6 @@ document.addEventListener('DOMContentLoaded', () => {
         
         const texts = t.noTexts;
         noBtn.textContent = texts[Math.floor(Math.random() * texts.length)];
-        noBtn.style.transform = `rotate(${Math.random() * 20 - 10}deg)`;
-    }
-
-    function isOverlapping(x, y, width, height, element, buffer = 0) {
-        const elRect = element.getBoundingClientRect();
-        const cardRect = card.getBoundingClientRect(); 
-        
-        const elLeft = elRect.left - cardRect.left - buffer;
-        const elTop = elRect.top - cardRect.top - buffer;
-        const elRight = elLeft + elRect.width + (buffer * 2);
-        const elBottom = elTop + elRect.height + (buffer * 2);
-
-        const newLeft = x;
-        const newTop = y;
-        const newRight = x + width;
-        const newBottom = y + height;
-
-        return !(newRight < elLeft || 
-                 newLeft > elRight || 
-                 newBottom < elTop || 
-                 newTop > elBottom);
-    }
-
-    function growYes() {
-        const rate = isMobile ? 0.5 : 0.3;
-        const max = 3.5;
-        
-        if (yesScale < max) {
-            yesScale += rate;
-            yesBtn.style.transform = `scale(${yesScale})`;
-            yesBtn.style.zIndex = 100;
-        }
     }
 
     function surrender() {
@@ -157,9 +100,9 @@ document.addEventListener('DOMContentLoaded', () => {
         noBtn.style.borderColor = "#ccc";
         noBtn.style.position = "absolute"; 
         
-        // Force Bottom Position (Safe from Mascot)
-        noBtn.style.top = "auto";
-        noBtn.style.bottom = "20px";
+        // Force Top Position (Safe from Mascot)
+        noBtn.style.top = "20px";
+        noBtn.style.bottom = "auto";
         noBtn.style.left = "50%";
         noBtn.style.transform = "translateX(-50%) scale(0.9)";
         noBtn.style.zIndex = "50";

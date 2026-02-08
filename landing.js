@@ -242,12 +242,12 @@ document.addEventListener('DOMContentLoaded', () => {
         previewNoBtn.style.borderColor = "#ccc";
         previewNoBtn.style.position = "absolute"; 
         
-        // Force Top Position (Safe from Mascot)
-        previewNoBtn.style.top = "20px";
+        // Force Top Left Position (Safe from Mascot)
+        previewNoBtn.style.top = "15px";
+        previewNoBtn.style.left = "15px";
         previewNoBtn.style.bottom = "auto";
-        previewNoBtn.style.left = "50%";
-        previewNoBtn.style.transform = "translateX(-50%) scale(0.9)";
-        previewNoBtn.style.zIndex = "200"; // Higher than Yes button
+        previewNoBtn.style.transform = "scale(0.85)";
+        previewNoBtn.style.zIndex = "200"; 
         previewNoBtn.style.transition = "all 0.5s ease";
         
         previewYesBtn.style.zIndex = 100;
@@ -271,7 +271,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // --- VICTORY -> PAYWALL ---
+    // --- EVENTS ---
     previewYesBtn.addEventListener('click', () => {
         // Update Paywall Language
         const t = translations[currentLang];
@@ -284,9 +284,22 @@ document.addEventListener('DOMContentLoaded', () => {
         paywallModal.classList.remove('hidden');
     });
 
+    // Prevent double firing on touch devices
+    let lastInteraction = 0;
+
+    function handleInteraction(e) {
+        e.preventDefault();
+        const now = Date.now();
+        if (now - lastInteraction < 100) return;
+        lastInteraction = now;
+
+        if (isSurrendered) handleDrama();
+        else moveButton();
+    }
+
     previewNoBtn.addEventListener('mouseover', () => { if (!isMobile) moveButton(); });
-    previewNoBtn.addEventListener('touchstart', (e) => { e.preventDefault(); if (isSurrendered) handleDrama(); else moveButton(); });
-    previewNoBtn.addEventListener('click', (e) => { e.preventDefault(); if (isSurrendered) handleDrama(); else moveButton(); });
+    previewNoBtn.addEventListener('touchstart', handleInteraction, { passive: false });
+    previewNoBtn.addEventListener('click', handleInteraction);
 
 
     // --- CHECKOUT LOGIC ---

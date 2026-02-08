@@ -100,12 +100,12 @@ document.addEventListener('DOMContentLoaded', () => {
         noBtn.style.borderColor = "#ccc";
         noBtn.style.position = "absolute"; 
         
-        // Force Top Position (Safe from Mascot)
-        noBtn.style.top = "20px";
+        // Force Top Left Position (Safe from Mascot)
+        noBtn.style.top = "15px";
+        noBtn.style.left = "15px";
         noBtn.style.bottom = "auto";
-        noBtn.style.left = "50%";
-        noBtn.style.transform = "translateX(-50%) scale(0.9)";
-        noBtn.style.zIndex = "200"; // Higher than Yes button
+        noBtn.style.transform = "scale(0.85)"; // Slightly smaller
+        noBtn.style.zIndex = "200"; 
         noBtn.style.transition = "all 0.5s ease";
         
         yesBtn.style.zIndex = 100;
@@ -157,19 +157,23 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- EVENTS ---
     yesBtn.addEventListener('click', victory);
 
+    // Prevent double firing on touch devices
+    let lastInteraction = 0;
+
+    function handleInteraction(e) {
+        e.preventDefault(); // Prevent default browser behavior
+        const now = Date.now();
+        if (now - lastInteraction < 100) return; // Debounce
+        lastInteraction = now;
+
+        if (isSurrendered) handleDrama();
+        else moveButton();
+    }
+
     noBtn.addEventListener('mouseover', () => {
         if (!isMobile) moveButton();
     });
 
-    noBtn.addEventListener('touchstart', (e) => {
-        e.preventDefault();
-        if (isSurrendered) handleDrama();
-        else moveButton();
-    });
-
-    noBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        if (isSurrendered) handleDrama();
-        else moveButton();
-    });
+    noBtn.addEventListener('touchstart', handleInteraction, { passive: false });
+    noBtn.addEventListener('click', handleInteraction);
 });

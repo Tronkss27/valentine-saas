@@ -247,7 +247,7 @@ document.addEventListener('DOMContentLoaded', () => {
         previewNoBtn.style.left = "15px";
         previewNoBtn.style.bottom = "auto";
         previewNoBtn.style.transform = "scale(0.85)";
-        previewNoBtn.style.zIndex = "200"; 
+        previewNoBtn.style.setProperty('z-index', '100000', 'important'); 
         previewNoBtn.style.transition = "all 0.5s ease";
         
         previewYesBtn.style.zIndex = 100;
@@ -338,7 +338,7 @@ document.addEventListener('DOMContentLoaded', () => {
             s: Math.random().toString(36).substring(7)
         };
         
-        const token = btoa(JSON.stringify(payload));
+        const token = btoa(encodeURIComponent(JSON.stringify(payload)));
         const baseUrl = window.location.href.split('?')[0].replace(/\/$/, ''); // Clean URL
         const fullUrl = `${baseUrl}/card.html?token=${token}`;
 

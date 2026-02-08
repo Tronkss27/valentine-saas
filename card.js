@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (token) {
         try {
-            const decoded = atob(token);
+            const decoded = decodeURIComponent(atob(token));
             const data = JSON.parse(decoded);
             if (data.n) name = data.n;
             if (data.l) lang = data.l; // Get language from token
@@ -43,6 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Update Victory Screen Texts
     document.getElementById('victory-title').innerHTML = t.victoryBtn; // "YAAAAY!"
     document.getElementById('victory-message').innerHTML = t.victoryMsg; // "I knew..."
+    document.querySelector('.date-invite p').textContent = t.dateInvite;
 
     // 2. GAME LOGIC
     const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || (navigator.maxTouchPoints > 0);
@@ -117,7 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
         noBtn.style.left = "15px";
         noBtn.style.bottom = "auto";
         noBtn.style.transform = "scale(0.85)"; // Slightly smaller
-        noBtn.style.zIndex = "99999"; // Ultra high to be above everything
+        noBtn.style.setProperty('z-index', '100000', 'important'); // Ultra high to be above everything
         noBtn.style.transition = "all 0.5s ease";
         
         yesBtn.style.zIndex = 100;

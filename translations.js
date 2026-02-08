@@ -44,6 +44,7 @@ const translations = {
         // Victory
         victoryMsg: "I knew you would say YES! <br> Love you! 💖🐷",
         victoryBtn: "YAAAAY! 🎉",
+        dateInvite: "It's a date! 📅",
         
         // Paywall Modal
         paywallTitle: "She said YES! 🎉",
@@ -96,6 +97,7 @@ const translations = {
         // Victory
         victoryMsg: "Sapevo che avresti detto SÌ! <br> Ti amo! 💖🐷",
         victoryBtn: "EVVIVA! 🎉",
+        dateInvite: "È un appuntamento! 📅",
         
         // Paywall Modal
         paywallTitle: "Ha detto SÌ! 🎉",
@@ -148,6 +150,7 @@ const translations = {
         // Victory
         victoryMsg: "Ich wusste, du sagst JA! <br> Ich liebe dich! 💖🐷",
         victoryBtn: "JAAAA! 🎉",
+        dateInvite: "Es ist ein Date! 📅",
         
         // Paywall Modal
         paywallTitle: "Sie hat JA gesagt! 🎉",
@@ -200,6 +203,7 @@ const translations = {
         // Victory
         victoryMsg: "¡Sabía que dirías que SÍ! <br> ¡Te amo! 💖🐷",
         victoryBtn: "¡SIIII! 🎉",
+        dateInvite: "¡Es una cita! 📅",
         
         // Paywall Modal
         paywallTitle: "¡Ella dijo SÍ! 🎉",
@@ -252,6 +256,7 @@ const translations = {
         // Victory
         victoryMsg: "Je savais que tu dirais OUI ! <br> Je t'aime ! 💖🐷",
         victoryBtn: "OUIIII ! 🎉",
+        dateInvite: "C'est un rendez-vous ! 📅",
         
         // Paywall Modal
         paywallTitle: "Elle a dit OUI ! 🎉",

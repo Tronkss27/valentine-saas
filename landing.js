@@ -262,10 +262,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const t = translations[currentLang];
         if (dramaLevel === 1) {
             previewNoBtn.textContent = t.drama1;
-            previewNoBtn.style.transform = "translateX(-50%) scale(0.9)";
+            previewNoBtn.style.transform = "scale(0.9)";
         } else if (dramaLevel === 2) {
             previewNoBtn.textContent = t.drama2;
-            previewNoBtn.style.transform = "translateX(-50%) scale(0.8)";
+            previewNoBtn.style.transform = "scale(0.8)";
         } else {
             // FINALE
             previewNoBtn.style.display = 'none';

@@ -42,7 +42,7 @@ const translations = {
         finalMsg: "Resistance is futile...",
         
         // Victory
-        victoryMsg: "I knew you would say YES! <br> Love you! 💖🐷",
+        victoryMsg: "I knew you would say YES! <br> I had no doubts! 😎💖",
         victoryBtn: "YAAAAY! 🎉",
         dateInvite: "It's a date! 📅",
         
@@ -95,7 +95,7 @@ const translations = {
         finalMsg: "Resistere è inutile...",
         
         // Victory
-        victoryMsg: "Sapevo che avresti detto SÌ! <br> Ti amo! 💖🐷",
+        victoryMsg: "Sapevo che avresti detto SÌ! <br> Non avevo dubbi! 😎💖",
         victoryBtn: "EVVIVA! 🎉",
         dateInvite: "È un appuntamento! 📅",
         
@@ -148,7 +148,7 @@ const translations = {
         finalMsg: "Widerstand ist zwecklos...",
         
         // Victory
-        victoryMsg: "Ich wusste, du sagst JA! <br> Ich liebe dich! 💖🐷",
+        victoryMsg: "Ich wusste, du sagst JA! <br> Ich hatte keine Zweifel! 😎💖",
         victoryBtn: "JAAAA! 🎉",
         dateInvite: "Es ist ein Date! 📅",
         
@@ -201,7 +201,7 @@ const translations = {
         finalMsg: "La resistencia es inútil...",
         
         // Victory
-        victoryMsg: "¡Sabía que dirías que SÍ! <br> ¡Te amo! 💖🐷",
+        victoryMsg: "¡Sabía que dirías que SÍ! <br> ¡No tenía dudas! 😎💖",
         victoryBtn: "¡SIIII! 🎉",
         dateInvite: "¡Es una cita! 📅",
         
@@ -254,7 +254,7 @@ const translations = {
         finalMsg: "La résistance est futile...",
         
         // Victory
-        victoryMsg: "Je savais que tu dirais OUI ! <br> Je t'aime ! 💖🐷",
+        victoryMsg: "Je savais que tu dirais OUI ! <br> Je n'avais aucun doute ! 😎💖",
         victoryBtn: "OUIIII ! 🎉",
         dateInvite: "C'est un rendez-vous ! 📅",
         

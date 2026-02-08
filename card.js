@@ -163,10 +163,10 @@ document.addEventListener('DOMContentLoaded', () => {
         dramaLevel++;
         if (dramaLevel === 1) {
             noBtn.textContent = t.drama1;
-            noBtn.style.transform = "translateX(-50%) scale(0.9)";
+            noBtn.style.transform = "scale(0.9)";
         } else if (dramaLevel === 2) {
             noBtn.textContent = t.drama2;
-            noBtn.style.transform = "translateX(-50%) scale(0.8)";
+            noBtn.style.transform = "scale(0.8)";
         } else {
             // FINALE
             noBtn.style.display = 'none';

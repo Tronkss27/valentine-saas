@@ -55,6 +55,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     createHearts();
 
+    // --- HELPER FUNCTIONS ---
+    function growYes() {
+        const rate = isMobile ? 0.5 : 0.3;
+        const max = 3.5;
+        if (yesScale < max) {
+            yesScale += rate;
+            yesBtn.style.transform = `scale(${yesScale})`;
+            yesBtn.style.zIndex = 100;
+        }
+    }
+
     // --- COLLISION DETECTION ---
     function moveButton() {
         if (isSurrendered) return;
@@ -67,12 +78,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
         growYes();
 
+        // Safe positions (Avoiding the top center where the mascot is)
         const positions = [
-            { top: '10%', left: '10%' }, // Top Left
-            { top: '50%', left: '80%' }, // Center Right
+            { top: '15%', left: '10%' }, // Top Left
+            { top: '15%', left: '90%' }, // Top Right
             { top: '50%', left: '10%' }, // Center Left
-            { top: '80%', left: '80%' }, // Bottom Right
-            { top: '20%', left: '50%' }  // Top Center
+            { top: '50%', left: '90%' }, // Center Right
+            { top: '85%', left: '50%' }  // Bottom Center
         ];
 
         const pos = positions[(attempts - 1) % positions.length];

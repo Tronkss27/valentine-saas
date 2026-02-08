@@ -99,6 +99,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     function startPreview(name) {
+        // Save to LocalStorage immediately (Safety net)
+        localStorage.setItem('valenlink_name', name);
+        localStorage.setItem('valenlink_lang', currentLang);
+
         // Switch Views
         landingView.classList.add('hidden');
         fullscreenPreview.classList.remove('hidden');

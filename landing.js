@@ -266,7 +266,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // FINALE
             previewNoBtn.style.display = 'none';
             previewYesBtn.innerHTML = `<span>${t.finalSmall}</span>${t.finalBig}`;
-            previewYesBtn.classList.add('final-yes-state');
+            previewYesBtn.classList.add('giant-yes');
             previewResponseMsg.textContent = t.finalMsg;
         }
     }

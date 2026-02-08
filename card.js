@@ -123,7 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // FINALE
             noBtn.style.display = 'none';
             yesBtn.innerHTML = `<span>${t.finalSmall}</span>${t.finalBig}`;
-            yesBtn.classList.add('final-yes-state');
+            yesBtn.classList.add('giant-yes');
             responseMsg.textContent = t.finalMsg;
         }
     }

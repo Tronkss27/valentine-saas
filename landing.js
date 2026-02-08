@@ -296,7 +296,8 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('valenlink_lang', currentLang);
 
         // --- DODO PAYMENTS INTEGRATION ---
-        const DODO_PAYMENT_LINK = "https://test.checkout.dodopayments.com/buy/pdt_0NY01y9ZYWCDPKnzorOEd?quantity=1&redirect_url=" + encodeURIComponent(window.location.origin + "/?payment=success");
+        // Use Live Checkout URL (Will work once verification is complete)
+        const DODO_PAYMENT_LINK = "https://checkout.dodopayments.com/buy/pdt_0NY01y9ZYWCDPKnzorOEd?quantity=1&redirect_url=" + encodeURIComponent(window.location.origin + "/?payment=success");
         
         window.location.href = DODO_PAYMENT_LINK;
     });

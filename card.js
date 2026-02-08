@@ -79,21 +79,55 @@ document.addEventListener('DOMContentLoaded', () => {
 
         growYes();
 
-        // Safe positions (Avoiding the top center where the mascot is)
-        const positions = [
-            { top: '15%', left: '10%' }, // Top Left
-            { top: '15%', left: '90%' }, // Top Right
-            { top: '50%', left: '10%' }, // Center Left
-            { top: '50%', left: '90%' }, // Center Right
-            { top: '85%', left: '50%' }  // Bottom Center
-        ];
+        const cardRect = card.getBoundingClientRect();
+        const btnWidth = noBtn.offsetWidth;
+        const btnHeight = noBtn.offsetHeight;
+        
+        const padding = 20;
+        const maxX = cardRect.width - btnWidth - padding;
+        const maxY = cardRect.height - btnHeight - padding;
 
-        const pos = positions[(attempts - 1) % positions.length];
+        let randX, randY;
+        let safe = false;
+        let tries = 0;
+        const yesBuffer = 40;
+
+        while (!safe && tries < 50) {
+            randX = Math.random() * (maxX - padding) + padding;
+            randY = Math.random() * (maxY - padding) + padding;
+            
+            // Simple collision check against Yes button
+            const yesRect = yesBtn.getBoundingClientRect();
+            const cardRectAbs = card.getBoundingClientRect();
+            
+            // Calculate absolute positions for new No button position
+            const newLeftAbs = cardRectAbs.left + randX;
+            const newTopAbs = cardRectAbs.top + randY;
+            const newRightAbs = newLeftAbs + btnWidth;
+            const newBottomAbs = newTopAbs + btnHeight;
+            
+            // Check overlap with Yes button (with buffer)
+            if (!(newRightAbs < yesRect.left - yesBuffer || 
+                  newLeftAbs > yesRect.right + yesBuffer || 
+                  newBottomAbs < yesRect.top - yesBuffer || 
+                  newTopAbs > yesRect.bottom + yesBuffer)) {
+                // Overlaps
+                safe = false;
+            } else {
+                safe = true;
+            }
+            tries++;
+        }
+
+        if (!safe) {
+            randX = Math.random() > 0.5 ? padding : maxX - padding;
+            randY = padding; 
+        }
 
         noBtn.style.position = 'absolute';
-        noBtn.style.left = pos.left;
-        noBtn.style.top = pos.top;
-        noBtn.style.transform = `translate(-50%, -50%) rotate(${Math.random() * 20 - 10}deg)`;
+        noBtn.style.left = `${randX}px`;
+        noBtn.style.top = `${randY}px`;
+        noBtn.style.zIndex = 200; // Ensure it stays on top of Yes button
 
         noBtn.classList.add('btn-shake');
         setTimeout(() => noBtn.classList.remove('btn-shake'), 300);
@@ -102,6 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         const texts = t.noTexts;
         noBtn.textContent = texts[Math.floor(Math.random() * texts.length)];
+        noBtn.style.transform = `translate(0, 0) rotate(${Math.random() * 20 - 10}deg)`;
     }
 
     function surrender() {

@@ -43,8 +43,13 @@
                 </button>
 
                 <div class="pricing-mini">
-                    <p class="price-tag">$1.99 <span class="period">/ forever</span></p>
-                    <p class="disclaimer"><i class="fa-solid fa-lock"></i> Secure payment via Stripe</p>
+                    <p class="price-tag">
+                        <span class="original-price" id="originalPriceDisplay">€15.00</span>
+                        <span class="current-price" id="priceDisplay">€7.50</span>
+                        <span class="period" id="periodDisplay">/ forever</span>
+                    </p>
+                    <p class="offer-timer"><span id="offerLabel">50% OFF ends in:</span> <span id="countdown">10:00</span></p>
+                    <p class="disclaimer" id="securePaymentText"><i class="fa-solid fa-lock"></i> Secure payment</p>
                 </div>
             </div>
         </main>
@@ -84,9 +89,11 @@
             
             <div class="pricing-card mt-20">
                 <div class="price-header">
-                    <span class="amount" id="priceDisplay">$1.99</span>
-                    <span class="period" id="periodDisplay">/ forever</span>
+                    <span class="original-price-modal" id="modalOriginalPrice">€15.00</span>
+                    <span class="amount" id="modalPriceDisplay">€7.50</span>
+                    <span class="period" id="modalPeriodDisplay">/ forever</span>
                 </div>
+                <p class="offer-timer-modal"><span id="modalOfferLabel">50% OFF ends in:</span> <span id="modalCountdown">10:00</span></p>
                 <ul class="features" id="featuresList">
                     <li><i class="fa-solid fa-check"></i> Custom Name</li>
                     <li><i class="fa-solid fa-check"></i> "Unclickable No" Logic</li>

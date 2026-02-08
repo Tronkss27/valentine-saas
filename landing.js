@@ -59,9 +59,31 @@ document.addEventListener('DOMContentLoaded', () => {
         // Pricing (Check if elements exist before updating)
         const priceDisplay = document.getElementById('priceDisplay');
         if(priceDisplay) priceDisplay.textContent = t.price;
+
+        const originalPriceDisplay = document.getElementById('originalPriceDisplay');
+        if(originalPriceDisplay) originalPriceDisplay.textContent = t.originalPrice;
         
         const periodDisplay = document.getElementById('periodDisplay');
         if(periodDisplay) periodDisplay.textContent = t.period;
+
+        const offerLabel = document.getElementById('offerLabel');
+        if(offerLabel) offerLabel.textContent = t.offerTimer;
+
+        const securePaymentText = document.getElementById('securePaymentText');
+        if(securePaymentText) securePaymentText.innerHTML = `<i class="fa-solid fa-lock"></i> ${t.securePayment}`;
+
+        // Modal Pricing
+        const modalPriceDisplay = document.getElementById('modalPriceDisplay');
+        if(modalPriceDisplay) modalPriceDisplay.textContent = t.price;
+
+        const modalOriginalPrice = document.getElementById('modalOriginalPrice');
+        if(modalOriginalPrice) modalOriginalPrice.textContent = t.originalPrice;
+
+        const modalPeriodDisplay = document.getElementById('modalPeriodDisplay');
+        if(modalPeriodDisplay) modalPeriodDisplay.textContent = t.period;
+
+        const modalOfferLabel = document.getElementById('modalOfferLabel');
+        if(modalOfferLabel) modalOfferLabel.textContent = t.offerTimer;
         
         // Features
         const featuresList = document.getElementById('featuresList');
@@ -381,4 +403,29 @@ document.addEventListener('DOMContentLoaded', () => {
         resultModal.classList.add('hidden');
         closePreview();
     });
+
+    // --- COUNTDOWN TIMER ---
+    function startTimer(duration, display1, display2) {
+        let timer = duration, minutes, seconds;
+        setInterval(function () {
+            minutes = parseInt(timer / 60, 10);
+            seconds = parseInt(timer % 60, 10);
+
+            minutes = minutes < 10 ? "0" + minutes : minutes;
+            seconds = seconds < 10 ? "0" + seconds : seconds;
+
+            const text = minutes + ":" + seconds;
+            if(display1) display1.textContent = text;
+            if(display2) display2.textContent = text;
+
+            if (--timer < 0) {
+                timer = duration; // Reset or stop? Let's restart for now or keep at 00:00
+                // timer = 0; 
+            }
+        }, 1000);
+    }
+
+    const countdownDisplay = document.getElementById('countdown');
+    const modalCountdownDisplay = document.getElementById('modalCountdown');
+    startTimer(600, countdownDisplay, modalCountdownDisplay); // 10 minutes
 });

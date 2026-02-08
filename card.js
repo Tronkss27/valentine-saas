@@ -157,13 +157,10 @@ document.addEventListener('DOMContentLoaded', () => {
         noBtn.style.borderColor = "#ccc";
         noBtn.style.position = "absolute"; 
         
-        const yesBuffer = 50;
-        if (isOverlapping(parseFloat(noBtn.style.left), parseFloat(noBtn.style.top), noBtn.offsetWidth, noBtn.offsetHeight, yesBtn, yesBuffer)) {
-             noBtn.style.left = (card.offsetWidth - noBtn.offsetWidth - 20) + 'px';
-             noBtn.style.top = (card.offsetHeight - noBtn.offsetHeight - 20) + 'px';
-        }
-        
-        noBtn.style.zIndex = 10;
+        // Force Top-Left Position to be safe
+        noBtn.style.top = "20px";
+        noBtn.style.left = "20px";
+        noBtn.style.zIndex = "50";
         yesBtn.style.zIndex = 100;
     }
 

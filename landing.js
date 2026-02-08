@@ -241,6 +241,10 @@ document.addEventListener('DOMContentLoaded', () => {
         previewNoBtn.style.color = "#666";
         previewNoBtn.style.borderColor = "#ccc";
         previewNoBtn.style.position = "absolute"; 
+        // Force Top-Left Position to be safe
+        previewNoBtn.style.top = "20px";
+        previewNoBtn.style.left = "20px";
+        previewNoBtn.style.zIndex = "50";
     }
 
     function handleDrama() {

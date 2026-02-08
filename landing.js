@@ -263,8 +263,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- VICTORY -> PAYWALL ---
     previewYesBtn.addEventListener('click', () => {
-        // Instead of showing victory screen, show Paywall
-        paywallName.textContent = currentName;
+        // Update Paywall Language
+        const t = translations[currentLang];
+        document.querySelector('#paywall-modal h2').innerHTML = t.paywallTitle;
+        document.querySelector('#paywall-modal p').innerHTML = t.paywallSubtitle.replace('{name}', `<span id="paywall-name">${currentName}</span>`);
+        checkoutBtn.innerHTML = t.paywallBtn;
+        closePaywallBtn.innerHTML = t.paywallClose;
+        
+        // Show Paywall
         paywallModal.classList.remove('hidden');
     });
 
@@ -273,16 +279,17 @@ document.addEventListener('DOMContentLoaded', () => {
     previewNoBtn.addEventListener('click', (e) => { e.preventDefault(); if (isSurrendered) handleDrama(); else moveButton(); });
 
 
-    // --- CHECKOUT & LINK GENERATION ---
+    // --- CHECKOUT LOGIC ---
     checkoutBtn.addEventListener('click', () => {
-        // --- DODO PAYMENTS INTEGRATION ---
-        // Using Test Mode URL as per user screenshot/context
-        const DODO_PAYMENT_LINK = "https://test.dodopayments.com/buy/pdt_0NY01y9ZYWCDPKnzorOEd"; 
-
         // Store current session data
         localStorage.setItem('valenlink_name', currentName);
         localStorage.setItem('valenlink_lang', currentLang);
 
+        // --- DODO PAYMENTS INTEGRATION ---
+        const DODO_PAYMENT_LINK = "https://test.dodopayments.com/buy/pdt_0NY01y9ZYWCDPKnzorOEd"; 
+        
+        // Open in new tab to avoid 'download' issue if it's a file header problem
+        // But better yet, simply redirect
         window.location.href = DODO_PAYMENT_LINK;
     });
 

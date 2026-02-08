@@ -241,10 +241,14 @@ document.addEventListener('DOMContentLoaded', () => {
         previewNoBtn.style.color = "#666";
         previewNoBtn.style.borderColor = "#ccc";
         previewNoBtn.style.position = "absolute"; 
-        // Force Top-Left Position to be safe
-        previewNoBtn.style.top = "20px";
-        previewNoBtn.style.left = "20px";
+        
+        // Force Bottom Position (Safe from Mascot)
+        previewNoBtn.style.top = "auto";
+        previewNoBtn.style.bottom = "20px";
+        previewNoBtn.style.left = "50%";
+        previewNoBtn.style.transform = "translateX(-50%) scale(0.9)";
         previewNoBtn.style.zIndex = "50";
+        previewNoBtn.style.transition = "all 0.5s ease";
     }
 
     function handleDrama() {
@@ -252,15 +256,15 @@ document.addEventListener('DOMContentLoaded', () => {
         const t = translations[currentLang];
         if (dramaLevel === 1) {
             previewNoBtn.textContent = t.drama1;
-            previewNoBtn.style.transform = "scale(0.9)";
+            previewNoBtn.style.transform = "translateX(-50%) scale(0.9)";
         } else if (dramaLevel === 2) {
             previewNoBtn.textContent = t.drama2;
-            previewNoBtn.style.transform = "scale(0.8)";
+            previewNoBtn.style.transform = "translateX(-50%) scale(0.8)";
         } else {
             // FINALE
             previewNoBtn.style.display = 'none';
             previewYesBtn.innerHTML = `<span>${t.finalSmall}</span>${t.finalBig}`;
-            previewYesBtn.classList.add('giant-yes');
+            previewYesBtn.classList.add('final-yes-state');
             previewResponseMsg.textContent = t.finalMsg;
         }
     }

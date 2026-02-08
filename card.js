@@ -157,10 +157,14 @@ document.addEventListener('DOMContentLoaded', () => {
         noBtn.style.borderColor = "#ccc";
         noBtn.style.position = "absolute"; 
         
-        // Force Top-Left Position to be safe
-        noBtn.style.top = "20px";
-        noBtn.style.left = "20px";
+        // Force Bottom Position (Safe from Mascot)
+        noBtn.style.top = "auto";
+        noBtn.style.bottom = "20px";
+        noBtn.style.left = "50%";
+        noBtn.style.transform = "translateX(-50%) scale(0.9)";
         noBtn.style.zIndex = "50";
+        noBtn.style.transition = "all 0.5s ease";
+        
         yesBtn.style.zIndex = 100;
     }
 
@@ -168,15 +172,15 @@ document.addEventListener('DOMContentLoaded', () => {
         dramaLevel++;
         if (dramaLevel === 1) {
             noBtn.textContent = t.drama1;
-            noBtn.style.transform = "scale(0.9)";
+            noBtn.style.transform = "translateX(-50%) scale(0.9)";
         } else if (dramaLevel === 2) {
             noBtn.textContent = t.drama2;
-            noBtn.style.transform = "scale(0.8)";
+            noBtn.style.transform = "translateX(-50%) scale(0.8)";
         } else {
             // FINALE
             noBtn.style.display = 'none';
             yesBtn.innerHTML = `<span>${t.finalSmall}</span>${t.finalBig}`;
-            yesBtn.classList.add('giant-yes');
+            yesBtn.classList.add('final-yes-state');
             responseMsg.textContent = t.finalMsg;
         }
     }

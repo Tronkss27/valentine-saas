@@ -38,7 +38,7 @@ const translations = {
         
         // Finale
         finalSmall: "YOU HAVE NO CHOICE! 😈💖",
-        finalBig: "YES, I WANT TO! 😍",
+        finalBig: "YES, I WANT TO! 💖",
         finalMsg: "Resistance is futile...",
         
         // Victory
@@ -90,7 +90,7 @@ const translations = {
         
         // Finale
         finalSmall: "NON HAI SCELTA! 😈💖",
-        finalBig: "SÌ, LO VOGLIO! 😍",
+        finalBig: "SÌ, LO VOGLIO! 💖",
         finalMsg: "Resistere è inutile...",
         
         // Victory
@@ -142,7 +142,7 @@ const translations = {
         
         // Finale
         finalSmall: "DU HAST KEINE WAHL! 😈💖",
-        finalBig: "JA, ICH WILL! 😍",
+        finalBig: "JA, ICH WILL! 💖",
         finalMsg: "Widerstand ist zwecklos...",
         
         // Victory
@@ -194,7 +194,7 @@ const translations = {
         
         // Finale
         finalSmall: "¡NO TIENES OPCIÓN! 😈💖",
-        finalBig: "¡SÍ, QUIERO! 😍",
+        finalBig: "¡SÍ, QUIERO! 💖",
         finalMsg: "La resistencia es inútil...",
         
         // Victory
@@ -246,7 +246,7 @@ const translations = {
         
         // Finale
         finalSmall: "TU N'AS PAS LE CHOIX ! 😈💖",
-        finalBig: "OUI, JE LE VEUX ! 😍",
+        finalBig: "OUI, JE LE VEUX ! 💖",
         finalMsg: "La résistance est futile...",
         
         // Victory

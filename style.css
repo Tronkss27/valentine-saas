@@ -515,6 +515,41 @@ input:focus, select:focus {
     100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
 }
 
+/* Share Buttons */
+.share-buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.btn-share {
+    padding: 10px 15px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: transform 0.2s;
+}
+
+.btn-share:hover {
+    transform: translateY(-2px);
+}
+
+.btn-share.email {
+    background-color: #555;
+}
+
+.btn-share.whatsapp {
+    background-color: #25D366;
+}
+
 /* Utilities */
 .hidden { display: none !important; }
 .mt-20 { margin-top: 20px; }

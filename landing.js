@@ -399,6 +399,25 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => copyBtn.innerHTML = originalIcon, 2000);
     });
 
+    // --- SHARE BUTTONS ---
+    const emailBtn = document.getElementById('email-btn');
+    const whatsappBtn = document.getElementById('whatsapp-btn');
+
+    if(emailBtn) {
+        emailBtn.addEventListener('click', () => {
+            const subject = encodeURIComponent("Il tuo link di My Valentine 💖");
+            const body = encodeURIComponent(`Ecco il link speciale per ${currentName}:\n\n${finalLinkInput.value}\n\nNon perderlo!`);
+            window.location.href = `mailto:?subject=${subject}&body=${body}`;
+        });
+    }
+
+    if(whatsappBtn) {
+        whatsappBtn.addEventListener('click', () => {
+            const text = encodeURIComponent(`Ecco il link speciale per ${currentName} 💖:\n${finalLinkInput.value}`);
+            window.open(`https://wa.me/?text=${text}`, '_blank');
+        });
+    }
+
     closeResultBtn.addEventListener('click', () => {
         resultModal.classList.add('hidden');
         closePreview();

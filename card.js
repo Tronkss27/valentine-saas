@@ -256,6 +256,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- EVENTS ---
     yesBtn.addEventListener('click', victory);
 
+    // Optimize movement for PC
+    if (!isMobile) {
+        noBtn.style.transition = "all 0.15s ease-out";
+    }
+
     // Prevent double firing on touch devices
     let lastInteraction = 0;
 

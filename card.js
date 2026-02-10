@@ -258,7 +258,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Optimize movement for PC
     if (!isMobile) {
-        noBtn.style.transition = "all 0.15s ease-out";
+        // Faster transition for snappier feel
+        noBtn.style.transition = "top 0.1s ease-out, left 0.1s ease-out, transform 0.1s ease-out";
     }
 
     // Prevent double firing on touch devices

@@ -227,10 +227,18 @@ input:focus, select:focus {
 .mascot-large {
     width: 140px;
     margin-bottom: 20px;
-    filter: drop-shadow(0 10px 10px rgba(255,77,109,0.2));
+    /* filter: drop-shadow(0 10px 10px rgba(255,77,109,0.2)); */
     display: block;
     margin-left: auto;
     margin-right: auto;
+    mix-blend-mode: multiply; /* Helps blend white background onto white card */
+}
+
+.victory-mascot {
+    width: 160px;
+    margin-bottom: 20px;
+    /* filter: drop-shadow(0 10px 10px rgba(255,77,109,0.2)); */
+    mix-blend-mode: multiply;
 }
 
 .buttons-area {
@@ -347,7 +355,8 @@ input:focus, select:focus {
 .victory-mascot {
     width: 160px;
     margin-bottom: 20px;
-    filter: drop-shadow(0 10px 10px rgba(255,77,109,0.2));
+    /* filter: drop-shadow(0 10px 10px rgba(255,77,109,0.2)); */
+    mix-blend-mode: multiply;
 }
 
 #victory-title {

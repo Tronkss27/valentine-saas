@@ -1,4 +1,15 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // --- PRELOAD IMAGES ---
+    const preloadImages = [
+        'pig-missed.png', 'pig-nope.png', 'pig-catch.png', 
+        'pig-giveup.png', 'pig-dontlove.png', 'pig-broken.png',
+        'pig-success.png'
+    ];
+    preloadImages.forEach(src => {
+        const img = new Image();
+        img.src = src;
+    });
+
     // --- ELEMENTS ---
     const nameInput = document.getElementById('valentineName');
     const langSelect = document.getElementById('languageSelect');
@@ -208,8 +219,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         growYes();
 
+        // Cache dimensions to avoid reflows in loop
         const cardRect = previewCardContainer.getBoundingClientRect();
-        // ... (Keep existing random logic but ensure it doesn't cover top-center) ...
+        const yesRect = previewYesBtn.getBoundingClientRect();
         const btnWidth = previewNoBtn.offsetWidth;
         const btnHeight = previewNoBtn.offsetHeight;
         
@@ -221,29 +233,31 @@ document.addEventListener('DOMContentLoaded', () => {
         let safe = false;
         let tries = 0;
         const yesBuffer = 40;
-        const mascotBuffer = 150; // Buffer around mascot (assumed center-top)
+        const mascotBuffer = 150; 
+
+        // Pre-calculate absolute card position
+        const cardLeft = cardRect.left;
+        const cardTop = cardRect.top;
 
         while (!safe && tries < 50) {
             randX = Math.random() * (maxX - padding) + padding;
             randY = Math.random() * (maxY - padding) + padding;
             
-            // Checks
-            const yesRect = previewYesBtn.getBoundingClientRect();
-            const cardRectAbs = previewCardContainer.getBoundingClientRect();
-            const newLeftAbs = cardRectAbs.left + randX;
-            const newTopAbs = cardRectAbs.top + randY;
+            // Calculate absolute positions for new No button position
+            const newLeftAbs = cardLeft + randX;
+            const newTopAbs = cardTop + randY;
             const newRightAbs = newLeftAbs + btnWidth;
             const newBottomAbs = newTopAbs + btnHeight;
             
-            // 1. Check YES overlap
+            // 1. Check YES overlap (using cached yesRect)
             const overlapYes = !(newRightAbs < yesRect.left - yesBuffer || 
                   newLeftAbs > yesRect.right + yesBuffer || 
                   newBottomAbs < yesRect.top - yesBuffer || 
                   newTopAbs > yesRect.bottom + yesBuffer);
 
-            // 2. Check MASCOT overlap (Approximate top center area)
+            // 2. Check MASCOT overlap
             const mascotCenterX = cardRect.width / 2;
-            const mascotBottomY = 200; // Approx height of mascot area
+            const mascotBottomY = 200; 
             const overlapMascot = (randY < mascotBottomY && Math.abs(randX + btnWidth/2 - mascotCenterX) < mascotBuffer);
 
             if (!overlapYes && !overlapMascot) {

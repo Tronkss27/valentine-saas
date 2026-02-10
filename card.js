@@ -56,6 +56,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     createHearts();
 
+    // --- PRELOAD IMAGES ---
+    const preloadImages = [
+        'pig-missed.png', 'pig-nope.png', 'pig-catch.png', 
+        'pig-giveup.png', 'pig-dontlove.png', 'pig-broken.png',
+        'pig-success.png'
+    ];
+    preloadImages.forEach(src => {
+        const img = new Image();
+        img.src = src;
+    });
+
     // --- HELPER FUNCTIONS ---
     function growYes() {
         const rate = isMobile ? 0.5 : 0.3;
@@ -96,8 +107,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         growYes();
 
+        // Cache dimensions to avoid reflows
         const cardRect = card.getBoundingClientRect();
-        // ... (Same buffer logic) ...
+        const yesRect = yesBtn.getBoundingClientRect();
         const btnWidth = noBtn.offsetWidth;
         const btnHeight = noBtn.offsetHeight;
         
@@ -111,15 +123,17 @@ document.addEventListener('DOMContentLoaded', () => {
         const yesBuffer = 40;
         const mascotBuffer = 150;
 
+        // Pre-calculate absolute card position
+        const cardLeft = cardRect.left;
+        const cardTop = cardRect.top;
+
         while (!safe && tries < 50) {
             randX = Math.random() * (maxX - padding) + padding;
             randY = Math.random() * (maxY - padding) + padding;
             
-            // Checks
-            const yesRect = yesBtn.getBoundingClientRect();
-            const cardRectAbs = card.getBoundingClientRect();
-            const newLeftAbs = cardRectAbs.left + randX;
-            const newTopAbs = cardRectAbs.top + randY;
+            // Calculate absolute positions
+            const newLeftAbs = cardLeft + randX;
+            const newTopAbs = cardTop + randY;
             const newRightAbs = newLeftAbs + btnWidth;
             const newBottomAbs = newTopAbs + btnHeight;
             

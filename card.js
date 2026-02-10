@@ -161,18 +161,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function handleDrama() {
         dramaLevel++;
+        const mascot = document.querySelector('.mascot-large');
+
         if (dramaLevel === 1) {
             noBtn.textContent = t.drama1;
             noBtn.style.transform = "scale(0.9)";
+            mascot.src = "pig-drama-1.png"; // Shocked/Sad
         } else if (dramaLevel === 2) {
             noBtn.textContent = t.drama2;
             noBtn.style.transform = "scale(0.8)";
+            mascot.src = "pig-drama-2.png"; // Crying/Pleading
         } else {
             // FINALE
             noBtn.style.display = 'none';
             yesBtn.innerHTML = `<span>${t.finalSmall}</span>${t.finalBig}`;
             yesBtn.classList.add('giant-yes');
             responseMsg.textContent = t.finalMsg;
+            mascot.src = "pig-drama-3.png"; // Broken Heart/Desperate
         }
     }
 

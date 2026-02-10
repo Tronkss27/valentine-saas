@@ -227,18 +227,23 @@ input:focus, select:focus {
 .mascot-large {
     width: 140px;
     margin-bottom: 20px;
-    /* filter: drop-shadow(0 10px 10px rgba(255,77,109,0.2)); */
+    filter: drop-shadow(0 5px 15px rgba(255,77,109,0.15));
     display: block;
     margin-left: auto;
     margin-right: auto;
-    mix-blend-mode: multiply; /* Helps blend white background onto white card */
+    /* mix-blend-mode removed for transparent PNGs */
 }
 
 .victory-mascot {
     width: 160px;
     margin-bottom: 20px;
-    /* filter: drop-shadow(0 10px 10px rgba(255,77,109,0.2)); */
-    mix-blend-mode: multiply;
+    filter: drop-shadow(0 5px 15px rgba(255,77,109,0.15));
+    /* mix-blend-mode removed for transparent PNGs */
+}
+
+/* Smooth movement for the No button */
+.btn-action.no {
+    transition: left 0.2s ease-out, top 0.2s ease-out, transform 0.2s ease;
 }
 
 .buttons-area {

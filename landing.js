@@ -402,6 +402,11 @@ document.addEventListener('DOMContentLoaded', () => {
         window.location.href = DODO_PAYMENT_LINK;
     });
 
+    // Optimize movement for PC
+    if (!isMobile) {
+        previewNoBtn.style.transition = "all 0.15s ease-out";
+    }
+
     // Check for payment success on load
     const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.get('payment') === 'success') {

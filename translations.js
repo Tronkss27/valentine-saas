@@ -28,12 +28,13 @@ const translations = {
         yesBtn: "Yes",
         noBtn: "No",
         
-        // No Button Texts (Running)
-        noTexts: ["Missed!", "Too slow!", "Nope!", "Try again!", "Catch me!"],
+        // No Button Texts (Ordered Sequence: 1, 2, 3)
+        noTexts: ["Missed!", "Nope!", "Catch me!"],
         
-        // Drama Texts
-        drama1: "So you don't love me? 😢",
-        drama2: "You're breaking my heart... 💔",
+        // Drama Texts (Ordered Sequence: 4, 5, 6)
+        drama1: "Okay, I give up... 🏳️",
+        drama2: "So you don't love me? 😢",
+        drama3: "You're breaking my heart... 💔",
         
         // Surrender
         surrender: "Okay, I give up... 🏳️",
@@ -84,11 +85,12 @@ const translations = {
         noBtn: "No",
         
         // No Button Texts
-        noTexts: ["Mancato!", "Troppo lenta!", "No!", "Riprova!", "Prendimi!"],
+        noTexts: ["Mancato!", "No!", "Prendimi!"],
         
         // Drama Texts
-        drama1: "Quindi non mi ami? 😢",
-        drama2: "Mi stai spezzando il cuore... 💔",
+        drama1: "Ok, mi arrendo... 🏳️",
+        drama2: "Quindi non mi ami? 😢",
+        drama3: "Mi stai spezzando il cuore... 💔",
         
         // Surrender
         surrender: "Ok, mi arrendo... 🏳️",
@@ -139,11 +141,12 @@ const translations = {
         noBtn: "Nein",
         
         // No Button Texts
-        noTexts: ["Daneben!", "Zu langsam!", "Nö!", "Versuch's nochmal!", "Fang mich!"],
+        noTexts: ["Daneben!", "Nö!", "Fang mich!"],
         
         // Drama Texts
-        drama1: "Also liebst du mich nicht? 😢",
-        drama2: "Du brichst mir das Herz... 💔",
+        drama1: "Ok, ich gebe auf... 🏳️",
+        drama2: "Also liebst du mich nicht? 😢",
+        drama3: "Du brichst mir das Herz... 💔",
         
         // Surrender
         surrender: "Ok, ich gebe auf... 🏳️",
@@ -194,11 +197,12 @@ const translations = {
         noBtn: "No",
         
         // No Button Texts
-        noTexts: ["¡Fallaste!", "¡Muy lenta!", "¡Nop!", "¡Intenta de nuevo!", "¡Atrápame!"],
+        noTexts: ["¡Fallaste!", "¡Nop!", "¡Atrápame!"],
         
         // Drama Texts
-        drama1: "¿Entonces no me amas? 😢",
-        drama2: "Me rompes el corazón... 💔",
+        drama1: "Ok, me rindo... 🏳️",
+        drama2: "¿Entonces no me amas? 😢",
+        drama3: "Me rompes el corazón... 💔",
         
         // Surrender
         surrender: "Ok, me rindo... 🏳️",
@@ -249,11 +253,12 @@ const translations = {
         noBtn: "Non",
         
         // No Button Texts
-        noTexts: ["Raté !", "Trop lent !", "Non !", "Essaie encore !", "Attrape-moi !"],
+        noTexts: ["Raté !", "Non !", "Attrape-moi !"],
         
         // Drama Texts
-        drama1: "Alors tu ne m'aimes pas ? 😢",
-        drama2: "Tu me brises le cœur... 💔",
+        drama1: "Ok, j'abandonne... 🏳️",
+        drama2: "Alors tu ne m'aimes pas ? 😢",
+        drama3: "Tu me brises le cœur... 💔",
         
         // Surrender
         surrender: "Ok, j'abandonne... 🏳️",

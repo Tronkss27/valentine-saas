@@ -67,19 +67,29 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // --- COLLISION DETECTION ---
     function moveButton() {
         if (isSurrendered) return;
 
         attempts++;
-        
-        // Update Mascot Emotion
         const mascot = document.querySelector('.mascot-large');
-        if (attempts <= 6) {
-            mascot.src = `pig-${attempts}.png`;
+        
+        // 1. Missed!
+        if (attempts === 1) {
+            noBtn.textContent = t.noTexts[0];
+            mascot.src = "pig-missed.png";
         }
-
-        if (attempts >= MAX_ATTEMPTS) {
+        // 2. Nope!
+        else if (attempts === 2) {
+            noBtn.textContent = t.noTexts[1];
+            mascot.src = "pig-nope.png";
+        }
+        // 3. Catch me!
+        else if (attempts === 3) {
+            noBtn.textContent = t.noTexts[2];
+            mascot.src = "pig-catch.png";
+        }
+        // 4. Surrender (Gray Starts)
+        else if (attempts >= 4) {
             surrender();
             return;
         }
@@ -87,6 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
         growYes();
 
         const cardRect = card.getBoundingClientRect();
+        // ... (Same buffer logic) ...
         const btnWidth = noBtn.offsetWidth;
         const btnHeight = noBtn.offsetHeight;
         
@@ -98,69 +109,82 @@ document.addEventListener('DOMContentLoaded', () => {
         let safe = false;
         let tries = 0;
         const yesBuffer = 40;
+        const mascotBuffer = 150;
 
         while (!safe && tries < 50) {
             randX = Math.random() * (maxX - padding) + padding;
             randY = Math.random() * (maxY - padding) + padding;
             
-            // Simple collision check against Yes button
+            // Checks
             const yesRect = yesBtn.getBoundingClientRect();
             const cardRectAbs = card.getBoundingClientRect();
-            
-            // Calculate absolute positions for new No button position
             const newLeftAbs = cardRectAbs.left + randX;
             const newTopAbs = cardRectAbs.top + randY;
             const newRightAbs = newLeftAbs + btnWidth;
             const newBottomAbs = newTopAbs + btnHeight;
             
-            // Check overlap with Yes button (with buffer)
-            if (!(newRightAbs < yesRect.left - yesBuffer || 
+            // 1. Check YES overlap
+            const overlapYes = !(newRightAbs < yesRect.left - yesBuffer || 
                   newLeftAbs > yesRect.right + yesBuffer || 
                   newBottomAbs < yesRect.top - yesBuffer || 
-                  newTopAbs > yesRect.bottom + yesBuffer)) {
-                // Overlaps
-                safe = false;
-            } else {
+                  newTopAbs > yesRect.bottom + yesBuffer);
+
+            // 2. Check MASCOT overlap
+            const mascotCenterX = cardRect.width / 2;
+            const mascotBottomY = 200; 
+            const overlapMascot = (randY < mascotBottomY && Math.abs(randX + btnWidth/2 - mascotCenterX) < mascotBuffer);
+
+            if (!overlapYes && !overlapMascot) {
                 safe = true;
             }
             tries++;
         }
 
         if (!safe) {
-            randX = Math.random() > 0.5 ? padding : maxX - padding;
-            randY = padding; 
+            const corners = [
+                {x: padding, y: maxY - padding}, 
+                {x: maxX - padding, y: maxY - padding}, 
+                {x: padding, y: padding + 200}, 
+                {x: maxX - padding, y: padding + 200} 
+            ];
+            const c = corners[attempts % corners.length];
+            randX = c.x;
+            randY = c.y;
         }
 
         noBtn.style.position = 'absolute';
         noBtn.style.left = `${randX}px`;
         noBtn.style.top = `${randY}px`;
-        noBtn.style.zIndex = 200; // Ensure it stays on top of Yes button
+        noBtn.style.zIndex = 200;
 
         noBtn.classList.add('btn-shake');
         setTimeout(() => noBtn.classList.remove('btn-shake'), 300);
         
         if (isMobile && navigator.vibrate) navigator.vibrate(50);
         
-        const texts = t.noTexts;
-        noBtn.textContent = texts[Math.floor(Math.random() * texts.length)];
         noBtn.style.transform = `translate(0, 0) rotate(${Math.random() * 20 - 10}deg)`;
     }
 
     function surrender() {
         isSurrendered = true;
-        noBtn.textContent = t.surrender;
+        const mascot = document.querySelector('.mascot-large');
+        
+        // 4. Okay I give up... (Gray)
+        noBtn.textContent = t.drama1;
+        mascot.src = "pig-giveup.png";
+
         noBtn.style.transform = "rotate(0deg)";
         noBtn.style.background = "#e0e0e0";
         noBtn.style.color = "#666";
         noBtn.style.borderColor = "#ccc";
         noBtn.style.position = "absolute"; 
         
-        // Force Top Left Position (Safe from Mascot)
+        // Force Top Left Position
         noBtn.style.top = "15px";
         noBtn.style.left = "15px";
         noBtn.style.bottom = "auto";
-        noBtn.style.transform = "scale(0.85)"; // Slightly smaller
-        noBtn.style.setProperty('z-index', '100000', 'important'); // Ultra high to be above everything
+        noBtn.style.transform = "scale(0.85)"; 
+        noBtn.style.setProperty('z-index', '100000', 'important'); 
         noBtn.style.transition = "all 0.5s ease";
         
         yesBtn.style.zIndex = 100;
@@ -168,14 +192,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function handleDrama() {
         dramaLevel++;
+        const mascot = document.querySelector('.mascot-large');
+
         if (dramaLevel === 1) {
-            noBtn.textContent = t.drama1;
-            noBtn.style.transform = "scale(0.9)";
-        } else if (dramaLevel === 2) {
+            // 5. So you don't love me?
             noBtn.textContent = t.drama2;
+            noBtn.style.transform = "scale(0.9)";
+            mascot.src = "pig-dontlove.png";
+        } else if (dramaLevel === 2) {
+            // 6. You're breaking my heart...
+            noBtn.textContent = t.drama3;
             noBtn.style.transform = "scale(0.8)";
+            mascot.src = "pig-broken.png";
         } else {
-            // FINALE
+            // 7. FINALE
             noBtn.style.display = 'none';
             yesBtn.innerHTML = `<span>${t.finalSmall}</span>${t.finalBig}`;
             yesBtn.classList.add('giant-yes');

@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Game State
     let yesScale = 1;
     let attempts = 0;
-    const MAX_ATTEMPTS = 5;
+    const MAX_ATTEMPTS = 7;
     let isSurrendered = false;
     let dramaLevel = 0;
     const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || (navigator.maxTouchPoints > 0);
@@ -182,6 +182,13 @@ document.addEventListener('DOMContentLoaded', () => {
         if (isSurrendered) return;
 
         attempts++;
+        
+        // Update Mascot Emotion
+        const mascot = document.querySelector('.mascot-large');
+        if (attempts <= 6) {
+            mascot.src = `pig-${attempts}.png`;
+        }
+
         if (attempts >= MAX_ATTEMPTS) {
             surrender();
             return;
@@ -282,23 +289,19 @@ document.addEventListener('DOMContentLoaded', () => {
     function handleDrama() {
         dramaLevel++;
         const t = translations[currentLang];
-        const mascot = document.querySelector('.mascot-large');
         
         if (dramaLevel === 1) {
             previewNoBtn.textContent = t.drama1;
             previewNoBtn.style.transform = "scale(0.9)";
-            mascot.src = "pig-drama-1.png"; // Shocked/Sad
         } else if (dramaLevel === 2) {
             previewNoBtn.textContent = t.drama2;
             previewNoBtn.style.transform = "scale(0.8)";
-            mascot.src = "pig-drama-2.png"; // Crying/Pleading
         } else {
             // FINALE
             previewNoBtn.style.display = 'none';
             previewYesBtn.innerHTML = `<span>${t.finalSmall}</span>${t.finalBig}`;
             previewYesBtn.classList.add('giant-yes');
             previewResponseMsg.textContent = t.finalMsg;
-            mascot.src = "pig-drama-3.png"; // Broken Heart/Desperate
         }
     }
 
